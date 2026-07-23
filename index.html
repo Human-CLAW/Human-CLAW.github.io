@@ -941,12 +941,6 @@
 <section class="section section-alt" id="success-gallery">
   <div class="container is-max-widescreen has-text-centered">
     <h2 class="title is-3">Gallery</h2>
-    <p class="subtitle is-6 gallery-intro">
-      Full <b>find&rarr;navigate&rarr;interact</b> successes from <b>Gemini-3.1</b>, the strongest model &mdash; it
-      explores, reaches the target within 20&nbsp;cm, and completes the sit with pelvis contact. Each clip shows the
-      egocentric view, a third-person view, and a top-down map (distance <code>d</code>, current skill, trajectory).
-      Use the arrows to browse.
-    </p>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepSucc(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
       <video id="succVideo" class="demo-video" autoplay muted loop playsinline controls>
@@ -961,11 +955,6 @@
 
 <section class="section section-alt" id="failure-gallery">
   <div class="container is-max-widescreen has-text-centered">
-    <p class="subtitle is-6 gallery-intro">
-      Typical, clearly decision-attributable failures of the same model. These are not motion or controller glitches
-      &mdash; the body executes fine; the agent decides wrongly: it explores poorly, jams without noticing, walks past a
-      target in plain view, or stops just short. Each is tagged with its failure category.
-    </p>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepFail(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
       <video id="failVideo" class="demo-video" autoplay muted loop playsinline controls>
