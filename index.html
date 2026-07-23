@@ -698,16 +698,11 @@
           </div>
         </div>
         <div class="fw-content" data-i="2">
-          <div class="fw-flex">
-            <img src="static/imgs/fig_hpp.png" alt="Half-physics simulation" />
-            <div>
-              <p>Generated motion is executed <b>kinematically</b> while the world responds <b>physically</b>: a wall
-              actually blocks the body (pass wall), a touched object is displaced (object collision), and gravity plus
-              ground contact shape the motion on stairs (climb).</p>
-              <p>Consequences are real, yet balance and motor-tracking failures are factored out&mdash;so when an
-              episode fails, the failure is attributable to the <b>decision</b>, not to a locomotion controller.</p>
-            </div>
-          </div>
+          <p>Generated motion is executed <b>kinematically</b> while the world responds <b>physically</b>: a wall
+          actually blocks the body (pass wall), a touched object is displaced (object collision), and gravity plus
+          ground contact shape the motion on stairs (climb). Consequences are real, yet balance and motor-tracking
+          failures are factored out&mdash;so when an episode fails, the failure is attributable to the
+          <b>decision</b>, not to a locomotion controller.</p>
           <div class="motion-grid">
             <div class="motion-item">
               <video autoplay muted loop playsinline><source src="static/videos/hpp_a1.mp4" type="video/mp4" /></video>
