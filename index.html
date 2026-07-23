@@ -146,18 +146,29 @@
     .tldr-card h4 { color: var(--text-strong); font-weight: 700; margin-bottom: 0.5rem; }
     .tldr-card p { color: var(--text); font-size: 0.95rem; }
     .tldr-card .tag-line { color: var(--accent2); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
-    .tldr-card.collapsible { cursor: pointer; }
+    .tldr-card.collapsible { cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
     .tldr-card.collapsible h4 { margin-bottom: 0; }
     .tldr-card .card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
     .tldr-card .fold-icon { color: var(--text-muted); transition: transform 0.25s ease; flex-shrink: 0; }
-    .tldr-card.open .fold-icon { transform: rotate(180deg); }
-    .tldr-card .card-body {
+    .tldr-card.open .fold-icon { transform: rotate(180deg); color: var(--brand); }
+    .tldr-card.collapsible:hover { box-shadow: 0 4px 16px rgba(30,40,90,0.12); }
+    .tldr-card.collapsible.open { border-color: var(--brand); border-top-color: var(--brand); }
+    .fw-panel {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease;
+      transition: max-height 0.35s ease;
+      text-align: left;
     }
-    .tldr-card.open .card-body { max-height: 240px; }
-    .tldr-card .card-body p { margin-top: 0.6rem; }
+    .fw-panel.open { max-height: 320px; }
+    .fw-panel-inner {
+      margin-top: 0.9rem;
+      background: var(--bg-card);
+      border: 1px solid var(--brand);
+      border-radius: 10px;
+      padding: 1.3rem 1.6rem;
+      box-shadow: 0 2px 12px rgba(30,40,90,0.07);
+    }
+    .fw-content p { color: var(--text); font-size: 0.97rem; margin: 0; }
 
     .finding-card {
       background: var(--bg-card);
@@ -586,8 +597,8 @@
       the <b>half-physics simulator</b> executes it with real scene consequences, feeding the next egocentric
       observation back to the VLM&mdash;closing the loop at a sub-second action timescale.
     </p>
-    <div class="tldr-grid" style="max-width: 1100px; margin-left: auto; margin-right: auto; text-align: left;">
-      <div class="tldr-card collapsible" onclick="this.classList.toggle('open')">
+    <div class="tldr-grid" id="fwTabs" style="max-width: 1100px; margin-left: auto; margin-right: auto; text-align: left;">
+      <div class="tldr-card collapsible" onclick="fwSelect(0)">
         <div class="card-head">
           <div>
             <div class="tag-line">Decision</div>
@@ -595,12 +606,8 @@
           </div>
           <i class="fas fa-chevron-down fold-icon"></i>
         </div>
-        <div class="card-body">
-          <p>Maps egocentric observations and task goals to structured action decisions&mdash;from intent, to spatial
-          target, to atomic skill&mdash;with a skill-specific verifier that rejects unsafe or invalid choices.</p>
-        </div>
       </div>
-      <div class="tldr-card collapsible" onclick="this.classList.toggle('open')">
+      <div class="tldr-card collapsible" onclick="fwSelect(1)">
         <div class="card-head">
           <div>
             <div class="tag-line">Motion</div>
@@ -608,12 +615,8 @@
           </div>
           <i class="fas fa-chevron-down fold-icon"></i>
         </div>
-        <div class="card-body">
-          <p>A motion-continuation DiT prior with lightweight ControlNet adapters realizes each accepted skill as
-          natural, continuous full-body human motion.</p>
-        </div>
       </div>
-      <div class="tldr-card collapsible" onclick="this.classList.toggle('open')">
+      <div class="tldr-card collapsible" onclick="fwSelect(2)">
         <div class="card-head">
           <div>
             <div class="tag-line">Consequence</div>
@@ -621,12 +624,43 @@
           </div>
           <i class="fas fa-chevron-down fold-icon"></i>
         </div>
-        <div class="card-body">
+      </div>
+    </div>
+    <div class="fw-panel" id="fwPanel" style="max-width: 1100px; margin: 0 auto;">
+      <div class="fw-panel-inner" id="fwPanelInner">
+        <div class="fw-content" data-i="0">
+          <p>Maps egocentric observations and task goals to structured action decisions&mdash;from intent, to spatial
+          target, to atomic skill&mdash;with a skill-specific verifier that rejects unsafe, premature, or physically
+          invalid choices before they reach the body.</p>
+        </div>
+        <div class="fw-content" data-i="1">
+          <p>A motion-continuation DiT prior with lightweight ControlNet adapters realizes each accepted skill as
+          natural, continuous full-body human motion, chunk by chunk at the 0.5&nbsp;s action timescale.</p>
+        </div>
+        <div class="fw-content" data-i="2">
           <p>Places generated motion in scenes with contact, collision, gravity, and object dynamics&mdash;while driving
           the humanoid kinematically, so failures stay attributable to decisions, not controllers.</p>
         </div>
       </div>
     </div>
+    <script>
+      var fwOpen = -1;
+      function fwSelect(i) {
+        var panel = document.getElementById('fwPanel');
+        var cards = document.querySelectorAll('#fwTabs .tldr-card');
+        var contents = document.querySelectorAll('#fwPanel .fw-content');
+        if (fwOpen === i) {
+          fwOpen = -1;
+          panel.classList.remove('open');
+          cards.forEach(function (c) { c.classList.remove('open'); });
+          return;
+        }
+        fwOpen = i;
+        contents.forEach(function (c) { c.style.display = c.getAttribute('data-i') == i ? 'block' : 'none'; });
+        panel.classList.add('open');
+        cards.forEach(function (c, j) { c.classList.toggle('open', j === i); });
+      }
+    </script>
   </div>
 </section>
 
