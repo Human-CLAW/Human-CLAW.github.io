@@ -159,7 +159,16 @@
       transition: max-height 0.35s ease;
       text-align: left;
     }
-    .fw-panel.open { max-height: 760px; }
+    .fw-panel.open { max-height: 1100px; }
+    .motion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+    @media (max-width: 768px) { .motion-grid { grid-template-columns: repeat(2, 1fr); } }
+    .motion-item video { width: 100%; border-radius: 8px; background: #fff; display: block; }
+    .motion-caption { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.35rem; text-align: center; }
     .fw-flex { display: flex; gap: 1.5rem; align-items: center; }
     .fw-flex img {
       max-width: 52%;
@@ -667,6 +676,24 @@
               condition encoder. Adapters live in a <b>plug-and-play ControlNet bag</b>&mdash;the VLM&rsquo;s
               <code>skill&lt;param&gt;</code> decision routes dynamically to the matching adapter, and a new skill can
               be registered without retraining the base model.</p>
+            </div>
+          </div>
+          <div class="motion-grid">
+            <div class="motion-item">
+              <video autoplay muted loop playsinline><source src="static/videos/motion_a.mp4" type="video/mp4" /></video>
+              <p class="motion-caption"><b>(a)</b> Without skill control, the prior collapses into colliding poses.</p>
+            </div>
+            <div class="motion-item">
+              <video autoplay muted loop playsinline><source src="static/videos/motion_b.mp4" type="video/mp4" /></video>
+              <p class="motion-caption"><b>(b)</b> With control, <code>walk</code> tracks the requested 0.3&nbsp;m stride.</p>
+            </div>
+            <div class="motion-item">
+              <video autoplay muted loop playsinline><source src="static/videos/motion_c.mp4" type="video/mp4" /></video>
+              <p class="motion-caption"><b>(c)</b> Skills compose with natural transitions into a loop.</p>
+            </div>
+            <div class="motion-item">
+              <video autoplay muted loop playsinline><source src="static/videos/motion_d.mp4" type="video/mp4" /></video>
+              <p class="motion-caption"><b>(d)</b> <code>sit</code> at heights 0 / 0.5 / 0.8&nbsp;m realizes the commanded parameter.</p>
             </div>
           </div>
         </div>
