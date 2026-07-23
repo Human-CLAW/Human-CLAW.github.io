@@ -420,7 +420,7 @@
   </div>
 </section>
 <script>
-  function slideSwap(v, newSrc, dir, onSwap) {
+  function slideSwap(v, newSrc, dir, onSwap, noPlay) {
     v.style.transition = 'transform 0.45s ease';
     v.style.transform = 'translateX(' + (-dir * 105) + '%)';
     setTimeout(function () {
@@ -433,7 +433,7 @@
       setTimeout(function () {
         v.style.transition = 'transform 0.45s ease';
         v.style.transform = 'translateX(0)';
-        v.play();
+        if (!noPlay) v.play();
       }, 30);
     }, 460);
   }
@@ -501,7 +501,7 @@
     s.onclick = function () { showVlm(i); };
     vlmDotsEl.appendChild(s);
   });
-  function showVlm(i, dir) {
+  function showVlm(i, dir, noPlay) {
     var target = (i + VLM_DEMOS.length) % VLM_DEMOS.length;
     if (target === vlmIdx) return;
     clearTimeout(vlmTimer);
@@ -512,14 +512,20 @@
       vlmDotsEl.querySelectorAll('span').forEach(function (s, j) {
         s.className = j === vlmIdx ? 'active' : '';
       });
-    });
+    }, noPlay);
   }
   function stepVlm(delta) { showVlm(vlmIdx + delta, delta > 0 ? 1 : -1); }
   var vlmTimer = null;
   var vlmVideoEl = document.getElementById('vlmVideo');
   vlmVideoEl.addEventListener('ended', function () {
     clearTimeout(vlmTimer);
-    vlmTimer = setTimeout(function () { vlmVideoEl.currentTime = 0; vlmVideoEl.play(); }, 3000);
+    vlmTimer = setTimeout(function () {
+      if (vlmIdx < VLM_DEMOS.length - 1) {
+        showVlm(vlmIdx + 1, 1);
+      } else {
+        showVlm(0, 1, true);
+      }
+    }, 3000);
   });
 </script>
 
