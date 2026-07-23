@@ -132,6 +132,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
       margin-top: 1.5rem;
+      align-items: start;
     }
     @media (max-width: 768px) { .tldr-grid { grid-template-columns: 1fr; } }
     .tldr-card {
@@ -145,6 +146,18 @@
     .tldr-card h4 { color: var(--text-strong); font-weight: 700; margin-bottom: 0.5rem; }
     .tldr-card p { color: var(--text); font-size: 0.95rem; }
     .tldr-card .tag-line { color: var(--accent2); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .tldr-card.collapsible { cursor: pointer; }
+    .tldr-card.collapsible h4 { margin-bottom: 0; }
+    .tldr-card .card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .tldr-card .fold-icon { color: var(--text-muted); transition: transform 0.25s ease; flex-shrink: 0; }
+    .tldr-card.open .fold-icon { transform: rotate(180deg); }
+    .tldr-card .card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .tldr-card.open .card-body { max-height: 240px; }
+    .tldr-card .card-body p { margin-top: 0.6rem; }
 
     .finding-card {
       background: var(--bg-card);
@@ -574,23 +587,44 @@
       observation back to the VLM&mdash;closing the loop at a sub-second action timescale.
     </p>
     <div class="tldr-grid" style="max-width: 1100px; margin-left: auto; margin-right: auto; text-align: left;">
-      <div class="tldr-card">
-        <div class="tag-line">Decision</div>
-        <h4>VLM Skill Harness</h4>
-        <p>Maps egocentric observations and task goals to structured action decisions&mdash;from intent, to spatial
-        target, to atomic skill&mdash;with a skill-specific verifier that rejects unsafe or invalid choices.</p>
+      <div class="tldr-card collapsible" onclick="this.classList.toggle('open')">
+        <div class="card-head">
+          <div>
+            <div class="tag-line">Decision</div>
+            <h4>VLM Skill Harness</h4>
+          </div>
+          <i class="fas fa-chevron-down fold-icon"></i>
+        </div>
+        <div class="card-body">
+          <p>Maps egocentric observations and task goals to structured action decisions&mdash;from intent, to spatial
+          target, to atomic skill&mdash;with a skill-specific verifier that rejects unsafe or invalid choices.</p>
+        </div>
       </div>
-      <div class="tldr-card">
-        <div class="tag-line">Motion</div>
-        <h4>Skill-Conditioned Motion Generator</h4>
-        <p>A motion-continuation DiT prior with lightweight ControlNet adapters realizes each accepted skill as
-        natural, continuous full-body human motion.</p>
+      <div class="tldr-card collapsible" onclick="this.classList.toggle('open')">
+        <div class="card-head">
+          <div>
+            <div class="tag-line">Motion</div>
+            <h4>Skill-Conditioned Motion Generator</h4>
+          </div>
+          <i class="fas fa-chevron-down fold-icon"></i>
+        </div>
+        <div class="card-body">
+          <p>A motion-continuation DiT prior with lightweight ControlNet adapters realizes each accepted skill as
+          natural, continuous full-body human motion.</p>
+        </div>
       </div>
-      <div class="tldr-card">
-        <div class="tag-line">Consequence</div>
-        <h4>Half-Physics Simulator</h4>
-        <p>Places generated motion in scenes with contact, collision, gravity, and object dynamics&mdash;while driving
-        the humanoid kinematically, so failures stay attributable to decisions, not controllers.</p>
+      <div class="tldr-card collapsible" onclick="this.classList.toggle('open')">
+        <div class="card-head">
+          <div>
+            <div class="tag-line">Consequence</div>
+            <h4>Half-Physics Simulator</h4>
+          </div>
+          <i class="fas fa-chevron-down fold-icon"></i>
+        </div>
+        <div class="card-body">
+          <p>Places generated motion in scenes with contact, collision, gravity, and object dynamics&mdash;while driving
+          the humanoid kinematically, so failures stay attributable to decisions, not controllers.</p>
+        </div>
       </div>
     </div>
   </div>
