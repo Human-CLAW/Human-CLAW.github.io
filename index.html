@@ -307,6 +307,38 @@
 
     .footer { background-color: var(--bg-alt) !important; }
     .footer p { color: var(--text-muted); }
+
+    /* ---- Case Galleries (success / failure) ---- */
+    .gallery-intro { color: var(--text-muted) !important; max-width: 780px; margin: 0 auto 1.5rem; }
+    .gallery-meta {
+      max-width: 820px;
+      margin: 0.9rem auto 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--brand);
+      border-radius: 8px;
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+    }
+    .gallery-meta.is-fail { border-left-color: var(--accent); }
+    .gallery-meta.is-success { border-left-color: #1a9d5a; }
+    .meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 0.3rem; }
+    .badge {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.15rem 0.6rem; border-radius: 999px; color: #fff;
+    }
+    .badge-success { background: #1a9d5a; }
+    .badge-fail { background: var(--accent); }
+    .meta-model {
+      font-size: 0.74rem; font-weight: 700; color: var(--accent2);
+      border: 1px solid var(--accent2); border-radius: 999px; padding: 0.1rem 0.55rem;
+    }
+    .meta-task { font-size: 0.95rem; color: var(--text-strong); }
+    .meta-task b { color: var(--brand); }
+    .meta-caseid { font-size: 0.72rem; color: var(--text-muted); font-family: monospace; margin-left: auto; }
+    .meta-cat { font-weight: 700; color: var(--text-strong); font-size: 0.98rem; margin-top: 0.1rem; }
+    .meta-cat .cat-code { font-size: 0.74rem; color: var(--text-muted); font-weight: 500; margin-left: 0.45rem; font-family: monospace; }
+    .meta-note { font-size: 0.92rem; color: var(--text) !important; margin-top: 0.25rem !important; }
   </style>
 </head>
 
@@ -753,6 +785,157 @@
 
   </div>
 </section>
+
+<!-- ======================= Case Galleries ======================= -->
+<section class="section" id="success-gallery">
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">When It Works</h2>
+    <p class="subtitle is-6 gallery-intro">
+      Full <b>find&rarr;navigate&rarr;interact</b> successes from <b>Gemini-3.1</b>, the strongest model &mdash; it
+      explores, reaches the target within 20&nbsp;cm, and completes the sit with pelvis contact. Each clip shows the
+      egocentric view, a third-person view, and a top-down map (distance <code>d</code>, current skill, trajectory).
+      Use the arrows to browse.
+    </p>
+    <div class="demo-carousel">
+      <button class="carousel-arrow prev" onclick="stepSucc(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+      <video id="succVideo" class="demo-video" autoplay muted loop playsinline controls>
+        <source src="static/videos/gallery/succ_01_bed.mp4" type="video/mp4" />
+      </video>
+      <button class="carousel-arrow next" onclick="stepSucc(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      <div class="carousel-dots" id="succDots"></div>
+    </div>
+    <div id="succMeta" class="gallery-meta is-success"></div>
+  </div>
+</section>
+
+<section class="section section-alt" id="failure-gallery">
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">How It Fails</h2>
+    <p class="subtitle is-6 gallery-intro">
+      Typical, clearly decision-attributable failures of the same model. These are not motion or controller glitches
+      &mdash; the body executes fine; the agent decides wrongly: it explores poorly, jams without noticing, walks past a
+      target in plain view, or stops just short. Each is tagged with its failure category.
+    </p>
+    <div class="demo-carousel">
+      <button class="carousel-arrow prev" onclick="stepFail(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+      <video id="failVideo" class="demo-video" autoplay muted loop playsinline controls>
+        <source src="static/videos/gallery/fail_01_explore.mp4" type="video/mp4" />
+      </video>
+      <button class="carousel-arrow next" onclick="stepFail(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      <div class="carousel-dots" id="failDots"></div>
+    </div>
+    <div id="failMeta" class="gallery-meta is-fail"></div>
+  </div>
+</section>
+
+<script>
+  function buildGallery(cfg) {
+    var idx = 0;
+    var video = document.getElementById(cfg.id + 'Video');
+    var dotsEl = document.getElementById(cfg.id + 'Dots');
+    var metaEl = document.getElementById(cfg.id + 'Meta');
+    cfg.items.forEach(function (it, i) {
+      var s = document.createElement('span');
+      if (i === 0) s.className = 'active';
+      s.onclick = function () { show(i); };
+      dotsEl.appendChild(s);
+    });
+    function renderMeta(it) {
+      var badge = cfg.kind === 'success'
+        ? '<span class="badge badge-success">Success</span>'
+        : '<span class="badge badge-fail">Failure</span>';
+      var cat = it.cat
+        ? '<div class="meta-cat">' + it.cat + '<span class="cat-code">' + it.code + '</span></div>'
+        : '';
+      metaEl.innerHTML =
+        '<div class="meta-row">' + badge +
+        '<span class="meta-model">Gemini-3.1</span>' +
+        '<span class="meta-task">' + it.task + '</span>' +
+        '<span class="meta-caseid">' + it.id + '</span></div>' +
+        cat +
+        '<p class="meta-note">' + it.note + '</p>';
+    }
+    function show(i) {
+      idx = (i + cfg.items.length) % cfg.items.length;
+      var it = cfg.items[idx];
+      video.querySelector('source').src = it.src;
+      video.load(); video.play();
+      dotsEl.querySelectorAll('span').forEach(function (s, j) { s.className = j === idx ? 'active' : ''; });
+      renderMeta(it);
+    }
+    renderMeta(cfg.items[0]);
+    cfg.step = function (d) { show(idx + d); };
+    return cfg;
+  }
+
+  var SUCC = buildGallery({
+    id: 'succ', kind: 'success',
+    items: [
+      { id: '107734338 · ep8', src: 'static/videos/gallery/succ_01_bed.mp4',
+        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
+        note: 'An easy one: a short, direct approach straight to the bed, then a clean sit.' },
+      { id: '108736689 · ep20', src: 'static/videos/gallery/succ_02_bed.mp4',
+        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
+        note: 'Walks into the bedroom, stops right at the bed (d&nbsp;=&nbsp;0&nbsp;m) and sits.' },
+      { id: '106366410 · ep13', src: 'static/videos/gallery/succ_03_couch.mp4',
+        task: 'find a <b>couch</b> &rarr; navigate &rarr; sit',
+        note: 'Crosses the living room to the couch and closes the interaction.' },
+      { id: '104862384 · ep26', src: 'static/videos/gallery/succ_04_toilet.mp4',
+        task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
+        note: 'Finds the bathroom, navigates in and sits on the toilet.' },
+      { id: '106878858 · ep22', src: 'static/videos/gallery/succ_05_toilet.mp4',
+        task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
+        note: 'Short, direct approach into the bathroom and a clean sit on the toilet.' },
+      { id: '102344094 · ep28', src: 'static/videos/gallery/succ_06_bed.mp4',
+        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
+        note: 'Explores through the house, stops right at the bed (d&nbsp;=&nbsp;0&nbsp;m) and completes the sit.' },
+      { id: '103997586 · ep23', src: 'static/videos/gallery/succ_07_couch.mp4',
+        task: 'find a <b>couch</b> &rarr; navigate &rarr; sit',
+        note: 'A long, multi-room traversal with a clean path, then a confident sit on the couch.' },
+      { id: '106366104 · ep15', src: 'static/videos/gallery/succ_08_toilet.mp4',
+        task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
+        note: 'A longer search across several rooms before finding the bathroom and sitting.' },
+      { id: '104348328 · ep21', src: 'static/videos/gallery/succ_09_bed.mp4',
+        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
+        note: 'Extended navigation through the house to reach the bed and sit down.' },
+      { id: '107733960 · ep10', src: 'static/videos/gallery/succ_10_couch.mp4',
+        task: 'find a <b>couch</b> &rarr; navigate &rarr; sit',
+        note: 'The hardest of the set &mdash; explores multiple rooms over a long horizon before reaching the couch and sitting.' }
+    ]
+  });
+  function stepSucc(d) { SUCC.step(d); }
+
+  var FAIL = buildGallery({
+    id: 'fail', kind: 'fail',
+    items: [
+      { id: '102816036 · ep20', src: 'static/videos/gallery/fail_01_explore.mp4',
+        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
+        cat: 'Ineffective exploration', code: 'ineffective_exploration',
+        note: '100-step timeout: the agent wanders and knocks into furniture, ending 5.1&nbsp;m from the bed &mdash; it never brings the target into view.' },
+      { id: '102816600 · ep20', src: 'static/videos/gallery/fail_02_jammed.mp4',
+        task: 'find a <b>TV</b> &rarr; navigate &rarr; sit',
+        cat: 'Unaware jammed', code: 'unaware_jammed',
+        note: 'Jams against a table and keeps side-stepping in place (colliding 84% of steps), stuck 1.0&nbsp;m short without ever registering that it is blocked.' },
+      { id: '102816756 · ep9', src: 'static/videos/gallery/fail_03_inview.mp4',
+        task: 'find a <b>chair</b> &rarr; navigate &rarr; sit',
+        cat: 'Target in view but not seen', code: 'target_in_view_not_seen',
+        note: 'The chair is directly beside it at d&nbsp;=&nbsp;0&nbsp;m, yet it keeps choosing &ldquo;walk forward&rdquo; instead of sitting &mdash; the target is in the ego view but never acted on.' },
+      { id: '102817140 · ep2', src: 'static/videos/gallery/fail_04_arrived.mp4',
+        task: 'find a <b>potted plant</b> &rarr; navigate &rarr; sit',
+        cat: 'Unaware arrived', code: 'unaware_arrived',
+        note: 'The plant is in view and it walks right up to d&nbsp;=&nbsp;0.21&nbsp;m &mdash; but instead of sitting it keeps walking and turning until the step limit runs out. It arrived and never realized it.' },
+      { id: '102816114 · ep25', src: 'static/videos/gallery/fail_05_sitair.mp4',
+        task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
+        cat: 'Sit on air', code: 'sit_on_air',
+        note: 'Reaches the toilet at d&nbsp;=&nbsp;0.03&nbsp;m and issues &ldquo;sit down&rdquo; &mdash; but the sit lands in the wrong place / into the air, so pelvis contact is never made.' },
+      { id: '102816114 · ep6', src: 'static/videos/gallery/fail_06_toofar.mp4',
+        task: 'find a <b>chair</b> &rarr; navigate &rarr; sit',
+        cat: 'Too far', code: 'too_far',
+        note: 'Wanders out of the house entirely into the garden and keeps going &mdash; a 100-step timeout that ends 4.8&nbsp;m from the nearest chair, having walked away from every target.' }
+    ]
+  });
+  function stepFail(d) { FAIL.step(d); }
+</script>
 
 <!-- ======================= BibTeX ======================= -->
 <section class="section">
