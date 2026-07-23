@@ -191,31 +191,24 @@
     .demo-thumbs {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
       flex-wrap: wrap;
     }
     .demo-thumb {
       cursor: pointer;
-      border: 3px solid transparent;
-      border-radius: 8px;
+      border-radius: 5px;
       overflow: hidden;
-      width: 220px;
-      transition: border-color 0.15s;
-      position: relative;
+      height: 50px;
+      opacity: 0.45;
+      transition: opacity 0.2s, box-shadow 0.2s;
     }
-    .demo-thumb img { display: block; width: 100%; }
-    .demo-thumb .demo-label {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      background: rgba(10,10,20,0.65);
-      color: #fff;
-      font-size: 0.8rem;
-      padding: 0.15rem 0.5rem;
-      text-align: center;
+    .demo-thumb img { display: block; height: 100%; width: auto; }
+    .demo-thumb.active, .demo-thumb:hover {
+      opacity: 1.0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
-    .demo-thumb.active { border-color: var(--brand-light); }
-    .demo-thumb:hover { border-color: var(--accent2); }
 
     .bibtex-box {
       background: var(--bg-card);
@@ -315,20 +308,18 @@
       consequences in the scene. <b>Left</b>: egocentric view &middot; <b>right</b>: third-person view and
       the live skill panel.
     </p>
+    <div class="demo-thumbs">
+      <div class="demo-thumb active" id="demoThumb1" onclick="switchDemo('static/videos/demo1.mp4', this)" title="Demo 1">
+        <img src="static/imgs/demo1_thumb.jpg" alt="Demo 1" />
+      </div>
+      <div class="demo-thumb" id="demoThumb2" onclick="switchDemo('static/videos/demo2.mp4', this)" title="Demo 2">
+        <img src="static/imgs/demo2_thumb.jpg" alt="Demo 2" />
+      </div>
+    </div>
     <video id="demoVideo" class="demo-video" autoplay muted loop playsinline controls>
       <source src="static/videos/demo1.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    <div class="demo-thumbs">
-      <div class="demo-thumb active" id="demoThumb1" onclick="switchDemo('static/videos/demo1.mp4', this)">
-        <img src="static/imgs/demo1_thumb.jpg" alt="Demo 1" />
-        <div class="demo-label">Demo 1</div>
-      </div>
-      <div class="demo-thumb" id="demoThumb2" onclick="switchDemo('static/videos/demo2.mp4', this)">
-        <img src="static/imgs/demo2_thumb.jpg" alt="Demo 2" />
-        <div class="demo-label">Demo 2</div>
-      </div>
-    </div>
   </div>
 </section>
 <script>
