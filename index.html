@@ -265,14 +265,19 @@
     .ba-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      max-width: 720px;
+      gap: 1.5rem;
+      max-width: 960px;
       margin: 1.5rem auto 0;
     }
-    @media (max-width: 600px) { .ba-grid { grid-template-columns: 1fr; } }
-    .ba-item video {
+    @media (max-width: 768px) { .ba-grid { grid-template-columns: 1fr; } }
+    .ba-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .ba-pair video {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid var(--border);
       display: block;
     }
@@ -281,6 +286,12 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       text-align: center;
+    }
+    .ba-views {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      opacity: 0.8;
     }
 
     .bibtex-box {
@@ -674,16 +685,28 @@
 
     <div class="ba-grid">
       <div class="ba-item">
-        <video autoplay muted loop playsinline>
-          <source src="static/videos/ba_hand.mp4" type="video/mp4" />
-        </video>
-        <p class="ba-caption">The hand brushes the chair&mdash;the agent never notices.</p>
+        <div class="ba-pair">
+          <video autoplay muted loop playsinline>
+            <source src="static/videos/ba_hand_ego.mp4" type="video/mp4" />
+          </video>
+          <video autoplay muted loop playsinline>
+            <source src="static/videos/ba_hand.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p class="ba-caption">The hand brushes the chair&mdash;the agent never notices.
+        <span class="ba-views">ego view &middot; third-person view</span></p>
       </div>
       <div class="ba-item">
-        <video autoplay muted loop playsinline>
-          <source src="static/videos/ba_foot.mp4" type="video/mp4" />
-        </video>
-        <p class="ba-caption">The foot jams against the table&mdash;the agent keeps walking.</p>
+        <div class="ba-pair">
+          <video autoplay muted loop playsinline>
+            <source src="static/videos/ba_foot_ego.mp4" type="video/mp4" />
+          </video>
+          <video autoplay muted loop playsinline>
+            <source src="static/videos/ba_foot.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p class="ba-caption">The foot jams against the table&mdash;the agent keeps walking.
+        <span class="ba-views">ego view &middot; third-person view</span></p>
       </div>
     </div>
 
