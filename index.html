@@ -417,22 +417,43 @@
 <section class="section">
   <div class="container is-max-widescreen has-text-centered">
     <h2 class="title is-3">Do VLMs Have Action Intelligence?</h2>
-    <div class="vlm-demo-grid">
-      <div class="vlm-demo">
-        <video class="demo-video" autoplay muted loop playsinline controls>
-          <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
-        </video>
-        <p class="vlm-caption"><em>&ldquo;find the stairs and go to the second floor&rdquo;</em></p>
-      </div>
-      <div class="vlm-demo">
-        <video class="demo-video" autoplay muted loop playsinline controls>
-          <source src="static/videos/vlm_sofa.mp4" type="video/mp4" />
-        </video>
-        <p class="vlm-caption"><em>&ldquo;find the sofa and sit on it&rdquo;</em></p>
-      </div>
+    <div class="demo-carousel">
+      <button class="carousel-arrow prev" onclick="stepVlm(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+      <video id="vlmVideo" class="demo-video" autoplay muted loop playsinline controls>
+        <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
+      </video>
+      <button class="carousel-arrow next" onclick="stepVlm(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      <div id="vlmTitle" class="demo-title"><em>&ldquo;find the stairs and go to the second floor&rdquo;</em></div>
+      <div class="carousel-dots" id="vlmDots"></div>
     </div>
   </div>
 </section>
+<script>
+  var VLM_DEMOS = [
+    { src: 'static/videos/vlm_stairs.mp4', title: '“find the stairs and go to the second floor”' },
+    { src: 'static/videos/vlm_sofa.mp4', title: '“find the sofa and sit on it”' }
+  ];
+  var vlmIdx = 0;
+  var vlmDotsEl = document.getElementById('vlmDots');
+  VLM_DEMOS.forEach(function (d, i) {
+    var s = document.createElement('span');
+    if (i === 0) s.className = 'active';
+    s.onclick = function () { showVlm(i); };
+    vlmDotsEl.appendChild(s);
+  });
+  function showVlm(i) {
+    vlmIdx = (i + VLM_DEMOS.length) % VLM_DEMOS.length;
+    var v = document.getElementById('vlmVideo');
+    v.querySelector('source').src = VLM_DEMOS[vlmIdx].src;
+    v.load();
+    v.play();
+    document.getElementById('vlmTitle').innerHTML = '<em>' + VLM_DEMOS[vlmIdx].title + '</em>';
+    vlmDotsEl.querySelectorAll('span').forEach(function (s, j) {
+      s.className = j === vlmIdx ? 'active' : '';
+    });
+  }
+  function stepVlm(delta) { showVlm(vlmIdx + delta); }
+</script>
 
 <!-- ======================= Abstract ======================= -->
 <section class="section section-alt">
