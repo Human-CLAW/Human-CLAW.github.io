@@ -607,6 +607,15 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Key Findings</h2>
 
+    <div class="figure-card" style="margin-bottom: 1rem;">
+      <img src="static/imgs/fig_error.png" alt="Error analysis" />
+    </div>
+    <p class="figure-caption" style="margin-bottom: 2rem;">
+      <b>Where episodes fail across the nine VLMs.</b> Failures trace to a single deficit: current VLMs reason
+      about the scene, but not about the body they now inhabit&mdash;a VLM trained to describe what it sees behaves
+      like a ghost, fluent about the world but with no sense of its own body.
+    </p>
+
     <div class="finding-card">
       <span class="f-label">Finding 1:</span><span class="f-claim">No current VLM solves the benchmark.</span>
       <p>The best model finds and sits on the target in only 16.8% of episodes, and four of the nine sit on it in at
@@ -642,14 +651,6 @@
       union solves only 59.7%, leaving 40% of the benchmark solved by no model.</p>
     </div>
 
-    <div class="figure-card" style="margin-top: 2rem;">
-      <img src="static/imgs/fig_error.png" alt="Error analysis" />
-    </div>
-    <p class="figure-caption">
-      <b>Where episodes fail across the nine VLMs.</b> Failures trace to a single deficit: current VLMs reason
-      about the scene, but not about the body they now inhabit&mdash;a VLM trained to describe what it sees behaves
-      like a ghost, fluent about the world but with no sense of its own body.
-    </p>
   </div>
 </section>
 
