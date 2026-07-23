@@ -262,6 +262,27 @@
       color: var(--text-strong);
     }
 
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      max-width: 720px;
+      margin: 1.5rem auto 0;
+    }
+    @media (max-width: 600px) { .ba-grid { grid-template-columns: 1fr; } }
+    .ba-item video {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    .ba-caption {
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
     .bibtex-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -649,6 +670,21 @@
       <p>Models fail with distinct fingerprints&mdash;over-claiming, premature stops, self-veto deadlock, never
       terminating&mdash;and their success sets barely overlap (max Jaccard 0.43 with the best model). The nine-model
       union solves only 59.7%, leaving 40% of the benchmark solved by no model.</p>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-item">
+        <video autoplay muted loop playsinline>
+          <source src="static/videos/ba_hand.mp4" type="video/mp4" />
+        </video>
+        <p class="ba-caption">The hand brushes the chair&mdash;the agent never notices.</p>
+      </div>
+      <div class="ba-item">
+        <video autoplay muted loop playsinline>
+          <source src="static/videos/ba_foot.mp4" type="video/mp4" />
+        </video>
+        <p class="ba-caption">The foot jams against the table&mdash;the agent keeps walking.</p>
+      </div>
     </div>
 
   </div>
