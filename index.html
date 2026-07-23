@@ -441,7 +441,12 @@
     });
   }
   function stepDemo(delta) { showDemo(demoIdx + delta); }
-  document.getElementById('demoVideo').addEventListener('ended', function () { stepDemo(1); });
+  var demoTimer = null;
+  document.getElementById('demoVideo').addEventListener('ended', function () {
+    clearTimeout(demoTimer);
+    demoTimer = setTimeout(function () { stepDemo(1); }, 3000);
+  });
+  document.getElementById('demoVideo').addEventListener('play', function () { clearTimeout(demoTimer); });
 </script>
 
 <!-- ======================= VLM Action Intelligence ======================= -->
@@ -450,7 +455,7 @@
     <h2 class="title is-3">Do VLMs Have Action Intelligence?</h2>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepVlm(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-      <video id="vlmVideo" class="demo-video" autoplay muted loop playsinline controls>
+      <video id="vlmVideo" class="demo-video" autoplay muted playsinline controls>
         <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
       </video>
       <button class="carousel-arrow next" onclick="stepVlm(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
@@ -484,6 +489,12 @@
     });
   }
   function stepVlm(delta) { showVlm(vlmIdx + delta); }
+  var vlmTimer = null;
+  var vlmVideoEl = document.getElementById('vlmVideo');
+  vlmVideoEl.addEventListener('ended', function () {
+    clearTimeout(vlmTimer);
+    vlmTimer = setTimeout(function () { vlmVideoEl.currentTime = 0; vlmVideoEl.play(); }, 3000);
+  });
 </script>
 
 <!-- ======================= Framework ======================= -->
