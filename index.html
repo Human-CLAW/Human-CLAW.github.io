@@ -950,7 +950,7 @@
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepSucc(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
       <video id="succVideo" class="demo-video" autoplay muted loop playsinline controls>
-        <source src="static/videos/gallery/succ_01_bed.mp4" type="video/mp4" />
+        <source src="static/videos/gallery/succ_04_toilet.mp4" type="video/mp4" />
       </video>
       <button class="carousel-arrow next" onclick="stepSucc(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
       <div class="carousel-dots" id="succDots"></div>
@@ -1021,36 +1021,15 @@
   var SUCC = buildGallery({
     id: 'succ', kind: 'success',
     items: [
-      { id: '107734338 · ep8', src: 'static/videos/gallery/succ_01_bed.mp4',
-        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
-        note: 'An easy one: a short, direct approach straight to the bed, then a clean sit.' },
-      { id: '108736689 · ep20', src: 'static/videos/gallery/succ_02_bed.mp4',
-        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
-        note: 'Walks into the bedroom, stops right at the bed (d&nbsp;=&nbsp;0&nbsp;m) and sits.' },
-      { id: '106366410 · ep13', src: 'static/videos/gallery/succ_03_couch.mp4',
-        task: 'find a <b>couch</b> &rarr; navigate &rarr; sit',
-        note: 'Crosses the living room to the couch and closes the interaction.' },
       { id: '104862384 · ep26', src: 'static/videos/gallery/succ_04_toilet.mp4',
         task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
         note: 'Finds the bathroom, navigates in and sits on the toilet.' },
       { id: '106878858 · ep22', src: 'static/videos/gallery/succ_05_toilet.mp4',
         task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
         note: 'Short, direct approach into the bathroom and a clean sit on the toilet.' },
-      { id: '102344094 · ep28', src: 'static/videos/gallery/succ_06_bed.mp4',
-        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
-        note: 'Explores through the house, stops right at the bed (d&nbsp;=&nbsp;0&nbsp;m) and completes the sit.' },
-      { id: '103997586 · ep23', src: 'static/videos/gallery/succ_07_couch.mp4',
-        task: 'find a <b>couch</b> &rarr; navigate &rarr; sit',
-        note: 'A long, multi-room traversal with a clean path, then a confident sit on the couch.' },
-      { id: '106366104 · ep15', src: 'static/videos/gallery/succ_08_toilet.mp4',
-        task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
-        note: 'A longer search across several rooms before finding the bathroom and sitting.' },
       { id: '104348328 · ep21', src: 'static/videos/gallery/succ_09_bed.mp4',
         task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
-        note: 'Extended navigation through the house to reach the bed and sit down.' },
-      { id: '107733960 · ep10', src: 'static/videos/gallery/succ_10_couch.mp4',
-        task: 'find a <b>couch</b> &rarr; navigate &rarr; sit',
-        note: 'The hardest of the set &mdash; explores multiple rooms over a long horizon before reaching the couch and sitting.' }
+        note: 'Extended navigation through the house to reach the bed and sit down.' }
     ]
   });
   function stepSucc(d) { SUCC.step(d); }
