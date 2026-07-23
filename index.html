@@ -82,6 +82,7 @@
       letter-spacing: 0.01em;
       margin-bottom: 0.6rem !important;
     }
+    .title + .subtitle { margin-top: 0 !important; }
     .section-alt { background-color: var(--bg-alt) !important; }
 
     .teaser-figure {
@@ -185,6 +186,11 @@
     table.leaderboard .best { color: var(--accent); font-weight: 700; }
     table.leaderboard .second { color: var(--accent2); font-weight: 600; }
     table.leaderboard tr:hover td { background: var(--bg-card2); }
+    .lb-sortrow th { cursor: pointer; user-select: none; white-space: nowrap; }
+    .lb-sortrow th:hover { color: var(--accent2); }
+    .lb-sortrow th.sorted { color: var(--accent2); }
+    .lb-sortrow th.sorted::after { content: ' \25BE'; }
+    .lb-sortrow th.sorted[data-sorted="asc"]::after { content: ' \25B4'; }
     .lb-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
 
     .demo-title {
@@ -495,7 +501,7 @@
       Full validation results on HumanCLAW-Bench (1,218 episodes, frozen off-the-shelf VLMs).
     </p>
     <div class="leaderboard-wrap">
-      <table class="leaderboard">
+      <table class="leaderboard" id="lbTable">
         <thead>
           <tr>
             <th rowspan="2" style="text-align:left;">VLM Backbone</th>
@@ -504,11 +510,11 @@
             <th>Action Quality &darr;</th>
             <th colspan="3">Cost</th>
           </tr>
-          <tr>
-            <th>FindSR</th><th>NavSR</th><th>InteractSR</th>
-            <th>Coll.</th><th>#Dtb/ep</th><th>dDtb (m)</th>
-            <th>Motion Jerk</th>
-            <th>avg steps</th><th>in tok/step</th><th>out tok/step</th>
+          <tr class="lb-sortrow">
+            <th data-col="1" data-dir="desc">FindSR</th><th data-col="2" data-dir="desc">NavSR</th><th data-col="3" data-dir="desc">InteractSR</th>
+            <th data-col="4" data-dir="asc">Coll.</th><th data-col="5" data-dir="asc">#Dtb/ep</th><th data-col="6" data-dir="asc">dDtb (m)</th>
+            <th data-col="7" data-dir="asc">Motion Jerk</th>
+            <th data-col="8" data-dir="asc">avg steps</th><th data-col="9" data-dir="asc">in tok/step</th><th data-col="10" data-dir="asc">out tok/step</th>
           </tr>
         </thead>
         <tbody>
@@ -528,7 +534,37 @@
       FindSR = target rendered in ego view (&ge;100 semantic px) <em>and</em> acknowledged by the model.
       Coll. = floor-relative non-ground collision step fraction. Motion Jerk = root-rigid jerk at &asymp;0.27 s
       timescale (lower = more coherent). <span class="best">Gold</span> = best, <span class="second">blue</span> = second best per column.
+      Click a metric header to sort.
     </p>
+    <script>
+      (function () {
+        var table = document.getElementById('lbTable');
+        var tbody = table.querySelector('tbody');
+        var headers = table.querySelectorAll('.lb-sortrow th');
+        var current = null;
+        headers.forEach(function (th) {
+          th.addEventListener('click', function () {
+            var col = parseInt(th.getAttribute('data-col'), 10);
+            var bestDir = th.getAttribute('data-dir');
+            var dir = bestDir;
+            if (current === th && th.getAttribute('data-sorted') === bestDir) {
+              dir = bestDir === 'desc' ? 'asc' : 'desc';
+            }
+            headers.forEach(function (h) { h.removeAttribute('data-sorted'); h.classList.remove('sorted'); });
+            th.setAttribute('data-sorted', dir);
+            th.classList.add('sorted');
+            current = th;
+            var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+            rows.sort(function (a, b) {
+              var va = parseFloat(a.cells[col].textContent.replace('%', ''));
+              var vb = parseFloat(b.cells[col].textContent.replace('%', ''));
+              return dir === 'desc' ? vb - va : va - vb;
+            });
+            rows.forEach(function (r) { tbody.appendChild(r); });
+          });
+        });
+      })();
+    </script>
   </div>
 </section>
 
