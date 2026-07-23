@@ -159,7 +159,21 @@
       transition: max-height 0.35s ease;
       text-align: left;
     }
-    .fw-panel.open { max-height: 320px; }
+    .fw-panel.open { max-height: 760px; }
+    .fw-flex { display: flex; gap: 1.5rem; align-items: center; }
+    .fw-flex img {
+      max-width: 52%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      align-self: center;
+    }
+    .fw-flex > div { flex: 1; }
+    .fw-flex p { margin-bottom: 0.7rem !important; }
+    @media (max-width: 768px) {
+      .fw-flex { flex-direction: column; }
+      .fw-flex img { max-width: 100%; }
+    }
     .fw-panel-inner {
       margin-top: 0.9rem;
       background: var(--bg-card);
@@ -629,17 +643,45 @@
     <div class="fw-panel" id="fwPanel" style="max-width: 1100px; margin: 0 auto;">
       <div class="fw-panel-inner" id="fwPanelInner">
         <div class="fw-content" data-i="0">
-          <p>Maps egocentric observations and task goals to structured action decisions&mdash;from intent, to spatial
-          target, to atomic skill&mdash;with a skill-specific verifier that rejects unsafe, premature, or physically
-          invalid choices before they reach the body.</p>
+          <div class="fw-flex">
+            <img src="static/imgs/fig_harness.png" alt="VLM skill harness flow" />
+            <div>
+              <p>At every 0.5&nbsp;s step, the frozen VLM receives the system prompt, the task instruction, the
+              registered <b>skill list &amp; rules</b>, the text history, and the current ego view. It then reasons in
+              three stages: <b>percept &amp; understand</b> (spatial layout, target visibility, obstacles &rarr; visual
+              state), <b>dynamic mid-level plan</b> (a 2&ndash;3&nbsp;s objective, inherited or revised from the last
+              step), and <b>low-level skill proposal</b> (one atomic skill plus its parameters).</p>
+              <p>A <b>short-context spatial-action outcome verifier</b> then interrogates the proposal with
+              skill-specific questions&mdash;what would this motion do, does it violate a rule?&mdash;and accepts,
+              rejects, or renews it from the skill pool before it ever reaches the body.</p>
+            </div>
+          </div>
         </div>
         <div class="fw-content" data-i="1">
-          <p>A motion-continuation DiT prior with lightweight ControlNet adapters realizes each accepted skill as
-          natural, continuous full-body human motion, chunk by chunk at the 0.5&nbsp;s action timescale.</p>
+          <div class="fw-flex">
+            <img src="static/imgs/fig_motion.png" alt="Skill-conditioned motion generation" />
+            <div>
+              <p>A <b>motion-continuation DiT</b> serves as the human motion prior: given 5 history poses, it denoises
+              the next 15 future frames as a velocity field, producing continuous, natural full-body motion chunk by
+              chunk.</p>
+              <p><b>One skill, one ControlNet</b>: each skill gets a lightweight ctrl-DiT adapter fed by a skill
+              condition encoder. Adapters live in a <b>plug-and-play ControlNet bag</b>&mdash;the VLM&rsquo;s
+              <code>skill&lt;param&gt;</code> decision routes dynamically to the matching adapter, and a new skill can
+              be registered without retraining the base model.</p>
+            </div>
+          </div>
         </div>
         <div class="fw-content" data-i="2">
-          <p>Places generated motion in scenes with contact, collision, gravity, and object dynamics&mdash;while driving
-          the humanoid kinematically, so failures stay attributable to decisions, not controllers.</p>
+          <div class="fw-flex">
+            <img src="static/imgs/fig_hpp.png" alt="Half-physics simulation" />
+            <div>
+              <p>Generated motion is executed <b>kinematically</b> while the world responds <b>physically</b>: a wall
+              actually blocks the body (pass wall), a touched object is displaced (object collision), and gravity plus
+              ground contact shape the motion on stairs (climb).</p>
+              <p>Consequences are real, yet balance and motor-tracking failures are factored out&mdash;so when an
+              episode fails, the failure is attributable to the <b>decision</b>, not to a locomotion controller.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
