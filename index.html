@@ -247,6 +247,21 @@
     }
     .carousel-dots span.active { background: var(--brand); }
 
+    .vlm-demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) { .vlm-demo-grid { grid-template-columns: 1fr; } }
+    .vlm-demo .demo-video { max-width: 100%; }
+    .vlm-caption {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      color: var(--text-strong);
+    }
+
     .bibtex-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -397,6 +412,27 @@
   function stepDemo(delta) { showDemo(demoIdx + delta); }
   document.getElementById('demoVideo').addEventListener('ended', function () { stepDemo(1); });
 </script>
+
+<!-- ======================= VLM Action Intelligence ======================= -->
+<section class="section">
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">Do VLMs Have Action Intelligence?</h2>
+    <div class="vlm-demo-grid">
+      <div class="vlm-demo">
+        <video class="demo-video" autoplay muted loop playsinline controls>
+          <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
+        </video>
+        <p class="vlm-caption"><em>&ldquo;find the stairs and go to the second floor&rdquo;</em></p>
+      </div>
+      <div class="vlm-demo">
+        <video class="demo-video" autoplay muted loop playsinline controls>
+          <source src="static/videos/vlm_sofa.mp4" type="video/mp4" />
+        </video>
+        <p class="vlm-caption"><em>&ldquo;find the sofa and sit on it&rdquo;</em></p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ======================= Abstract ======================= -->
 <section class="section section-alt">
