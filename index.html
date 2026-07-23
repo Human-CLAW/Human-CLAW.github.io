@@ -454,38 +454,21 @@
   function stepVlm(delta) { showVlm(vlmIdx + delta); }
 </script>
 
-<!-- ======================= Abstract ======================= -->
+<!-- ======================= Framework ======================= -->
 <section class="section section-alt">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Abstract</h2>
-    <div class="content has-text-justified">
-      <p>
-        Acting in physical space requires more than choosing a symbolic command. An agent must decide
-        <em>where to move, how to face, and when to interact</em>, while these decisions are realized through a body
-        that occupies space and changes the world. Existing settings make this problem hard to study cleanly:
-        scripted environments often remove physical consequence, while robotic systems entangle task-level decisions
-        with balance, actuation, and controller failures.
-      </p>
-      <p>
-        We introduce <b>HumanCLAW</b>, a closed-loop framework for studying this middle layer of physical action.
-        HumanCLAW separates <b>decision</b>, <b>motion</b>, and <b>consequence</b>: a VLM skill harness maps egocentric
-        observations to structured action decisions, a skill-conditioned motion generator realizes each decision as
-        continuous full-body motion, and a half-physics simulator gives the motion contact, collision, gravity, and
-        object dynamics while factoring out balance and motor-tracking failures. This design keeps failures attributable
-        to spatial action decisions rather than to a particular locomotion controller.
-      </p>
-      <p>
-        We further introduce <b>HumanCLAW-Bench</b>, a benchmark for egocentric whole-body
-        <em>find&ndash;navigate&ndash;interact</em> tasks with a frozen, off-the-shelf decision maker.
-        Across nine state-of-the-art VLMs, none solves the benchmark: the union of all nine completes only
-        <b>59.7%</b> of episodes, <b>40%</b> are solved by no model, and the strongest single model sits on the target
-        in at most <b>16.8%</b>. The failures lie not in perception or motor execution but in
-        <b>embodied self-awareness</b>: current VLMs recognize the scene yet cannot reliably tell where their own body
-        is, whether it has arrived, or when it collides with the world.
-      </p>
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">The HumanCLAW Framework</h2>
+    <div class="figure-card" style="max-width: 85%; margin-left: auto; margin-right: auto;">
+      <img src="static/imgs/fig_pipeline.png" alt="HumanCLAW pipeline" />
     </div>
-
-    <div class="tldr-grid">
+    <p class="figure-caption">
+      HumanCLAW separates three roles that are usually coupled. At each step, the <b>VLM skill harness</b> reads the
+      egocentric view and outputs an atomic skill decision; a <b>verifier</b> rejects unsafe, premature, or physically
+      invalid decisions; the <b>motion generator</b> continues full-body motion conditioned on the accepted skill; and
+      the <b>half-physics simulator</b> executes it with real scene consequences, feeding the next egocentric
+      observation back to the VLM&mdash;closing the loop at a sub-second action timescale.
+    </p>
+    <div class="tldr-grid" style="max-width: 1100px; margin-left: auto; margin-right: auto; text-align: left;">
       <div class="tldr-card">
         <div class="tag-line">Decision</div>
         <h4>VLM Skill Harness</h4>
@@ -505,23 +488,6 @@
         the humanoid kinematically, so failures stay attributable to decisions, not controllers.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ======================= Framework ======================= -->
-<section class="section">
-  <div class="container is-max-widescreen has-text-centered">
-    <h2 class="title is-3">The HumanCLAW Framework</h2>
-    <div class="figure-card">
-      <img src="static/imgs/fig_pipeline.png" alt="HumanCLAW pipeline" />
-    </div>
-    <p class="figure-caption">
-      HumanCLAW separates three roles that are usually coupled. At each step, the <b>VLM skill harness</b> reads the
-      egocentric view and outputs an atomic skill decision; a <b>verifier</b> rejects unsafe, premature, or physically
-      invalid decisions; the <b>motion generator</b> continues full-body motion conditioned on the accepted skill; and
-      the <b>half-physics simulator</b> executes it with real scene consequences, feeding the next egocentric
-      observation back to the VLM&mdash;closing the loop at a sub-second action timescale.
-    </p>
   </div>
 </section>
 
