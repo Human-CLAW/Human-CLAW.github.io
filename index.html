@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="HumanCLAW: Towards Closed-Loop Egocentric Spatial Action Intelligence" />
+  <meta property="og:title" content="HumanCLAW: Towards Closed-Loop Egocentric Spatial Action Intelligence" />
+  <meta property="og:description" content="A closed-loop framework and benchmark for egocentric whole-body spatial action intelligence." />
+  <meta property="og:image" content="static/imgs/teaser.png" />
+  <meta name="keywords" content="HumanCLAW, Embodied AI, VLM Agent, Action Intelligence, Humanoid, Benchmark, Egocentric" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>HumanCLAW: Towards Closed-Loop Egocentric Spatial Action Intelligence</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+
+  <style>
+    :root {
+      --brand: rgb(100, 140, 230);
+      --brand-light: rgb(130, 165, 255);
+      --accent: rgb(232, 165, 21);
+      --accent2: rgb(40, 158, 222);
+      --bg: #0a0a0f;
+      --bg-alt: #111118;
+      --bg-card: #16161f;
+      --bg-card2: #1c1c28;
+      --border: #2a2a3a;
+      --text: #d8d8e8;
+      --text-muted: #8888a8;
+      --text-strong: #eeeef8;
+    }
+    html, body {
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .hero { background-color: var(--bg) !important; }
+    .hero.is-light, .section.hero.is-light { background-color: var(--bg-alt) !important; }
+    .title, .subtitle { color: var(--text-strong) !important; }
+    .content { color: var(--text) !important; }
+    p, li { color: var(--text); }
+    a { color: var(--brand) !important; }
+    a:hover { color: var(--brand-light) !important; text-decoration: underline; }
+
+    .small-caps { font-variant: small-caps; letter-spacing: 0.05em; }
+    .publication-title, .title, .subtitle { font-family: 'Google Sans', 'Noto Sans', sans-serif; }
+    .publication-title { margin-bottom: 1rem !important; }
+    .publication-title .claw { color: var(--brand-light); }
+    .publication-authors { margin-bottom: 0.75rem; }
+    .publication-authors .author-block {
+      margin-right: 0.4rem;
+      color: var(--text);
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .publication-authors a { color: var(--brand) !important; }
+    .publication-authors sup { color: var(--accent); font-weight: 600; }
+    .affil { color: var(--text-muted); font-size: 0.95rem; }
+    .contrib-note { color: var(--text-muted); font-size: 0.85rem; }
+
+    .publication-links { margin-top: 1.25rem; }
+    .publication-links .link-block { margin: 0 4px; }
+    .publication-links .button.is-dark {
+      background-color: #1e1e2e;
+      border: 1px solid var(--border);
+      color: var(--text-strong);
+    }
+    .publication-links .button.is-dark:hover {
+      background-color: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    section.section { padding: 3rem 1.5rem; background-color: var(--bg); }
+    .section-alt { background-color: var(--bg-alt) !important; }
+
+    .teaser-figure {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .figure-card {
+      background: #f4f4f8;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .figure-card img { max-width: 100%; border-radius: 6px; }
+    .figure-caption {
+      max-width: 92%;
+      margin: 1rem auto 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-align: justify;
+    }
+    .figure-caption b { color: var(--text-strong); }
+
+    .stats-band {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem auto 0;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--brand);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      min-width: 150px;
+      text-align: center;
+    }
+    .stat-card .num { font-size: 1.8rem; font-weight: 700; color: var(--text-strong); }
+    .stat-card .lbl { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .stat-card.warn { border-top-color: var(--accent); }
+    .stat-card.warn .num { color: var(--accent); }
+
+    .tldr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 768px) { .tldr-grid { grid-template-columns: 1fr; } }
+    .tldr-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      border-top: 4px solid var(--brand);
+    }
+    .tldr-card h4 { color: var(--text-strong); font-weight: 700; margin-bottom: 0.5rem; }
+    .tldr-card p { color: var(--text); font-size: 0.95rem; }
+    .tldr-card .tag-line { color: var(--accent2); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+
+    .finding-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .finding-card .f-label { color: var(--accent); font-weight: 700; font-style: italic; margin-right: 0.5em; }
+    .finding-card .f-claim { color: var(--text-strong); font-weight: 700; }
+    .finding-card p { margin-top: 0.4rem; font-size: 0.95rem; color: var(--text); }
+
+    .leaderboard-wrap { overflow-x: auto; }
+    table.leaderboard {
+      margin: 1.5rem auto 0;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 900px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    table.leaderboard th, table.leaderboard td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-align: center;
+      white-space: nowrap;
+    }
+    table.leaderboard thead th {
+      color: var(--text-strong);
+      background: var(--bg-card2);
+      border-bottom: 2px solid var(--brand);
+    }
+    table.leaderboard td.model { text-align: left; font-weight: 600; color: var(--text-strong); }
+    table.leaderboard .best { color: var(--accent); font-weight: 700; }
+    table.leaderboard .second { color: var(--accent2); font-weight: 600; }
+    table.leaderboard tr:hover td { background: var(--bg-card2); }
+    .lb-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+    .bibtex-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: left;
+      overflow-x: auto;
+    }
+    .bibtex-box pre { background: transparent; color: var(--text); padding: 0; margin: 0; font-size: 0.85rem; }
+
+    .footer { background-color: var(--bg-alt) !important; }
+    .footer p { color: var(--text-muted); }
+  </style>
+</head>
+
+<body>
+
+<!-- ======================= Hero ======================= -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Human<span class="claw">CLAW</span></h1>
+          <h2 class="subtitle is-4" style="color: var(--text-muted) !important;">
+            Towards <b>C</b>losed-<b>L</b>oop Egocentric Spatial <b>A</b>ction Intelligence for <b>W</b>hole-body Agents
+          </h2>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Li Siyao<sup>1,2,*,&Dagger;</sup>,</span>
+            <span class="author-block">Jiawei Gu<sup>3,*</sup>,</span>
+            <span class="author-block">Shuai Liu<sup>2</sup>,</span>
+            <span class="author-block">Kairui Hu<sup>2</sup>,</span>
+            <span class="author-block">Zekun Li<sup>1,4</sup>,</span>
+            <span class="author-block">Chengcheng Tang<sup>1</sup>,</span>
+            <span class="author-block">Po-Chen Wu<sup>1</sup>,</span>
+            <span class="author-block">Ivan Shugurov<sup>1</sup>,</span>
+            <span class="author-block">Linjie Li<sup>3</sup>,</span>
+            <span class="author-block">Lingni Ma<sup>1</sup>,</span>
+            <span class="author-block">Michael Zollhoefer<sup>1</sup>,</span>
+            <span class="author-block">Sizhe An<sup>1</sup>,</span>
+            <span class="author-block">Abhay Mittal<sup>1,&dagger;</sup>,</span>
+            <span class="author-block">Amy Zhao<sup>1,&dagger;</sup>,</span>
+            <span class="author-block">Ranjay Krishna<sup>3,&dagger;</sup>,</span>
+            <span class="author-block">Manling Li<sup>5,&dagger;</sup>,</span>
+            <span class="author-block">Ziwei Liu<sup>2,&dagger;</sup>,</span>
+            <span class="author-block">Chuan Guo<sup>1,&dagger;</sup></span>
+          </div>
+
+          <div class="affil">
+            <span><sup>1</sup>Meta&nbsp;&nbsp;</span>
+            <span><sup>2</sup>Nanyang Technological University&nbsp;&nbsp;</span>
+            <span><sup>3</sup>University of Washington&nbsp;&nbsp;</span>
+            <span><sup>4</sup>Brown University&nbsp;&nbsp;</span>
+            <span><sup>5</sup>Northwestern University</span>
+          </div>
+          <div class="contrib-note">
+            <sup>*</sup>Equal contribution&nbsp;&nbsp;<sup>&Dagger;</sup>Intern at Meta&nbsp;&nbsp;<sup>&dagger;</sup>Equal advice
+          </div>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="#" class="button is-dark is-rounded">
+                <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/Human-CLAW" class="button is-dark is-rounded">
+                <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#leaderboard" class="button is-dark is-rounded">
+                <span class="icon"><i class="fas fa-trophy"></i></span><span>Leaderboard</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" class="button is-dark is-rounded">
+                <span class="icon"><i class="fas fa-database"></i></span><span>Benchmark</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Teaser ======================= -->
+<section class="hero">
+  <div class="container is-max-widescreen has-text-centered">
+    <img src="static/imgs/teaser.png" alt="HumanCLAW teaser" class="teaser-figure" />
+    <p class="figure-caption">
+      <b>HumanCLAW</b> closes the loop between egocentric perception and whole-body physical action:
+      a VLM decides the next action from first-person views, a skill-conditioned motion generator realizes it
+      as continuous full-body motion, and a half-physics simulator gives that motion real scene
+      consequences&mdash;objects move, collisions block&mdash;while factoring out balance and motor-tracking failures.
+    </p>
+
+    <div class="stats-band">
+      <div class="stat-card"><div class="num">1,218</div><div class="lbl">episodes</div></div>
+      <div class="stat-card"><div class="num">41</div><div class="lbl">HSSD houses</div></div>
+      <div class="stat-card"><div class="num">6</div><div class="lbl">target categories</div></div>
+      <div class="stat-card"><div class="num">9</div><div class="lbl">state-of-the-art VLMs</div></div>
+      <div class="stat-card warn"><div class="num">16.8%</div><div class="lbl">best single-model success</div></div>
+      <div class="stat-card warn"><div class="num">40%</div><div class="lbl">solved by no model</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Abstract ======================= -->
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Acting in physical space requires more than choosing a symbolic command. An agent must decide
+        <em>where to move, how to face, and when to interact</em>, while these decisions are realized through a body
+        that occupies space and changes the world. Existing settings make this problem hard to study cleanly:
+        scripted environments often remove physical consequence, while robotic systems entangle task-level decisions
+        with balance, actuation, and controller failures.
+      </p>
+      <p>
+        We introduce <b>HumanCLAW</b>, a closed-loop framework for studying this middle layer of physical action.
+        HumanCLAW separates <b>decision</b>, <b>motion</b>, and <b>consequence</b>: a VLM skill harness maps egocentric
+        observations to structured action decisions, a skill-conditioned motion generator realizes each decision as
+        continuous full-body motion, and a half-physics simulator gives the motion contact, collision, gravity, and
+        object dynamics while factoring out balance and motor-tracking failures. This design keeps failures attributable
+        to spatial action decisions rather than to a particular locomotion controller.
+      </p>
+      <p>
+        We further introduce <b>HumanCLAW-Bench</b>, a benchmark for egocentric whole-body
+        <em>find&ndash;navigate&ndash;interact</em> tasks with a frozen, off-the-shelf decision maker.
+        Across nine state-of-the-art VLMs, none solves the benchmark: the union of all nine completes only
+        <b>59.7%</b> of episodes, <b>40%</b> are solved by no model, and the strongest single model sits on the target
+        in at most <b>16.8%</b>. The failures lie not in perception or motor execution but in
+        <b>embodied self-awareness</b>: current VLMs recognize the scene yet cannot reliably tell where their own body
+        is, whether it has arrived, or when it collides with the world.
+      </p>
+    </div>
+
+    <div class="tldr-grid">
+      <div class="tldr-card">
+        <div class="tag-line">Decision</div>
+        <h4>VLM Skill Harness</h4>
+        <p>Maps egocentric observations and task goals to structured action decisions&mdash;from intent, to spatial
+        target, to atomic skill&mdash;with a skill-specific verifier that rejects unsafe or invalid choices.</p>
+      </div>
+      <div class="tldr-card">
+        <div class="tag-line">Motion</div>
+        <h4>Skill-Conditioned Motion Generator</h4>
+        <p>A motion-continuation DiT prior with lightweight ControlNet adapters realizes each accepted skill as
+        natural, continuous full-body human motion.</p>
+      </div>
+      <div class="tldr-card">
+        <div class="tag-line">Consequence</div>
+        <h4>Half-Physics Simulator</h4>
+        <p>Places generated motion in scenes with contact, collision, gravity, and object dynamics&mdash;while driving
+        the humanoid kinematically, so failures stay attributable to decisions, not controllers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Framework ======================= -->
+<section class="section">
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">The HumanCLAW Framework</h2>
+    <div class="figure-card">
+      <img src="static/imgs/fig_pipeline.png" alt="HumanCLAW pipeline" />
+    </div>
+    <p class="figure-caption">
+      HumanCLAW separates three roles that are usually coupled. At each step, the <b>VLM skill harness</b> reads the
+      egocentric view and outputs an atomic skill decision; a <b>verifier</b> rejects unsafe, premature, or physically
+      invalid decisions; the <b>motion generator</b> continues full-body motion conditioned on the accepted skill; and
+      the <b>half-physics simulator</b> executes it with real scene consequences, feeding the next egocentric
+      observation back to the VLM&mdash;closing the loop at a sub-second action timescale.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= Benchmark ======================= -->
+<section class="section section-alt">
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">HumanCLAW-Bench</h2>
+    <div class="content has-text-justified is-max-desktop container">
+      <p>
+        HumanCLAW-Bench probes long-horizon action intelligence with a progressive
+        <b><code>find&ndash;navigate&ndash;interact</code></b> task: <em>&ldquo;find a <code>&lt;obj&gt;</code>,
+        navigate to it with zero distance, and finally sit on it.&rdquo;</em> Each stage can be attempted only after
+        its prerequisite is met, so the agent must explore and decide autonomously.
+      </p>
+      <p>
+        Scenes come from <b>HSSD</b>: 41 validation houses give <b>1,218 episodes</b> over six target categories
+        (chair, bed, couch, potted plant, toilet, TV). Plausibly movable objects are converted to <em>dynamic</em>,
+        so contact displaces them and disturbance is measurable. Every episode is scored along three geometric
+        difficulty dimensions&mdash;<b>distance</b>, <b>choice</b>, and <b>obstacle</b>&mdash;for
+        difficulty-stratified evaluation.
+      </p>
+      <p>
+        Success is <em>progressive and self-acknowledged</em>: <b>FindSR</b> (target rendered in ego view and
+        acknowledged), <b>NavSR</b> (within 20&nbsp;cm of the target and stopping), and <b>InteractSR</b>
+        (sitting with pelvis contact on the target). We additionally measure motion jerk (action quality),
+        collisions and object disturbance (body awareness), and token cost.
+      </p>
+    </div>
+    <div class="figure-card" style="margin-top: 1.5rem;">
+      <img src="static/imgs/fig_difficulty.png" alt="Difficulty distributions" />
+    </div>
+    <p class="figure-caption">
+      <b>Difficulty distributions over the 1,218 episodes.</b> Distance (geodesic length to the nearest target),
+      choice (turns plus rooms traversed), and obstacle (average obstacles within 1&nbsp;m of the route) are each
+      split into easy / medium / hard by fixed physical thresholds.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= Leaderboard ======================= -->
+<section class="section" id="leaderboard">
+  <div class="container is-max-widescreen has-text-centered">
+    <h2 class="title is-3">Leaderboard</h2>
+    <p class="subtitle is-6" style="color: var(--text-muted) !important;">
+      Full validation results on HumanCLAW-Bench (1,218 episodes, frozen off-the-shelf VLMs).
+    </p>
+    <div class="leaderboard-wrap">
+      <table class="leaderboard">
+        <thead>
+          <tr>
+            <th rowspan="2" style="text-align:left;">VLM Backbone</th>
+            <th colspan="3">High-Level Success &uarr;</th>
+            <th colspan="3">Body Misaware &amp; Disturb &darr;</th>
+            <th>Action Quality &darr;</th>
+            <th colspan="3">Cost</th>
+          </tr>
+          <tr>
+            <th>FindSR</th><th>NavSR</th><th>InteractSR</th>
+            <th>Coll.</th><th>#Dtb/ep</th><th>dDtb (m)</th>
+            <th>Motion Jerk</th>
+            <th>avg steps</th><th>in tok/step</th><th>out tok/step</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="model">Gemini-3.1</td><td class="best">64.9%</td><td class="best">42.5%</td><td class="best">16.8%</td><td>39.5%</td><td>1.50</td><td class="best">1.22</td><td>5.7</td><td>59.1</td><td>5890</td><td class="second">311</td></tr>
+          <tr><td class="model">Gemma-4-31B</td><td class="second">58.1%</td><td class="second">28.7%</td><td class="second">11.1%</td><td>40.1%</td><td>1.66</td><td>1.86</td><td class="second">4.8</td><td>78.5</td><td>4632</td><td>322</td></tr>
+          <tr><td class="model">Gemini-2.5</td><td>58.5%</td><td>21.6%</td><td>3.5%</td><td>37.7%</td><td class="second">1.35</td><td>3.03</td><td>8.7</td><td>71.3</td><td>6412</td><td>401</td></tr>
+          <tr><td class="model">GPT-5.5</td><td>55.8%</td><td>14.1%</td><td>3.4%</td><td>43.4%</td><td>1.53</td><td class="second">1.56</td><td class="best">4.2</td><td>82.4</td><td class="best">4360</td><td>354</td></tr>
+          <tr><td class="model">Claude-4.8</td><td>32.7%</td><td>8.7%</td><td>1.5%</td><td>44.2%</td><td>1.73</td><td>2.76</td><td>5.3</td><td>81.0</td><td>7047</td><td>625</td></tr>
+          <tr><td class="model">Qwen3.6-27B</td><td>51.0%</td><td>20.9%</td><td>0.2%</td><td>43.0%</td><td>1.95</td><td>2.16</td><td>6.5</td><td>81.6</td><td>4862</td><td>482</td></tr>
+          <tr><td class="model">Qwen3.6-35B-A3B</td><td>44.6%</td><td>5.8%</td><td>0.0%</td><td class="second">34.6%</td><td>1.45</td><td>2.38</td><td>7.4</td><td>74.0</td><td>4766</td><td>477</td></tr>
+          <tr><td class="model">Qwen3.5-27B</td><td>37.8%</td><td>13.5%</td><td>0.0%</td><td class="best">34.5%</td><td class="best">0.93</td><td>2.38</td><td>6.8</td><td>37.6</td><td>4641</td><td>473</td></tr>
+          <tr><td class="model">InternVL3.5-38B</td><td>46.8%</td><td>0.8%</td><td>0.0%</td><td>51.2%</td><td>1.90</td><td>2.56</td><td>7.2</td><td>93.0</td><td class="second">4459</td><td class="best">309</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lb-note">
+      FindSR = target rendered in ego view (&ge;100 semantic px) <em>and</em> acknowledged by the model.
+      Coll. = floor-relative non-ground collision step fraction. Motion Jerk = root-rigid jerk at &asymp;0.27 s
+      timescale (lower = more coherent). <span class="best">Gold</span> = best, <span class="second">blue</span> = second best per column.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= Findings ======================= -->
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Findings</h2>
+
+    <div class="finding-card">
+      <span class="f-label">Finding 1:</span><span class="f-claim">No current VLM solves the benchmark.</span>
+      <p>The best model finds and sits on the target in only 16.8% of episodes, and four of the nine sit on it in at
+      most 0.2%. Every model shares the same sharp stage-by-stage drop: most of the task is lost between finding and
+      reaching, and again between reaching and interacting.</p>
+    </div>
+
+    <div class="finding-card">
+      <span class="f-label">Finding 2:</span><span class="f-claim">Perception matters but is not the bottleneck.</span>
+      <p>Once a target genuinely enters the ego view it is almost always recognized. Finding breaks upstream, in
+      bringing the target into view at all: the dominant deficit is ineffective exploration (38% of failures),
+      not recognition (23%).</p>
+    </div>
+
+    <div class="finding-card">
+      <span class="f-label">Finding 3:</span><span class="f-claim">Egocentric self-localization is the navigation bottleneck.</span>
+      <p>Of 5,473 episodes where the agent actively finds the target, 68% still fail to navigate to it. Nearly
+      two-thirds of these failures are errors of egocentric self-spatial awareness, surfacing as termination
+      decisions that fail in both directions&mdash;stopping too early, or never confirming arrival.</p>
+    </div>
+
+    <div class="finding-card">
+      <span class="f-label">Finding 4:</span><span class="f-claim">Reaching is not interacting.</span>
+      <p>Given contact with the target, eventual success ranges from 90% (Gemini-3.1) down to 3.5%
+      (InternVL3.5-38B)&mdash;an order of magnitude after navigation has already succeeded. The motion layer realizes
+      the sit reliably; what is missing is issuing and confirming it at the right moment.</p>
+    </div>
+
+    <div class="finding-card">
+      <span class="f-label">Finding 5:</span><span class="f-claim">No current VLM perceives its own body.</span>
+      <p>Models fail with distinct fingerprints&mdash;over-claiming, premature stops, self-veto deadlock, never
+      terminating&mdash;and their success sets barely overlap (max Jaccard 0.43 with the best model). The nine-model
+      union solves only 59.7%, leaving 40% of the benchmark solved by no model.</p>
+    </div>
+
+    <div class="figure-card" style="margin-top: 2rem;">
+      <img src="static/imgs/fig_error.png" alt="Error analysis" />
+    </div>
+    <p class="figure-caption">
+      <b>Where episodes fail across the nine VLMs.</b> Failures trace to a single deficit: current VLMs reason
+      about the scene, but not about the body they now inhabit&mdash;a VLM trained to describe what it sees behaves
+      like a ghost, fluent about the world but with no sense of its own body.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= BibTeX ======================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <div class="bibtex-box">
+<pre>@article{siyao2026humanclaw,
+  title   = {HumanCLAW: Towards Closed-Loop Egocentric Spatial Action Intelligence},
+  author  = {Li, Siyao and Gu, Jiawei and Liu, Shuai and Hu, Kairui and Li, Zekun and
+             Tang, Chengcheng and Wu, Po-Chen and Shugurov, Ivan and Li, Linjie and
+             Ma, Lingni and Zollhoefer, Michael and An, Sizhe and Mittal, Abhay and
+             Zhao, Amy and Krishna, Ranjay and Li, Manling and Liu, Ziwei and Guo, Chuan},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container has-text-centered">
+    <p>Website template inspired by the project pages of
+      <a href="https://vision-x-nyu.github.io/thinking-in-space.github.io/">VSI-Bench</a> and
+      <a href="https://esi-bench.github.io/">ESI-Bench</a>.
+      &copy; 2026 HumanCLAW Team.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
