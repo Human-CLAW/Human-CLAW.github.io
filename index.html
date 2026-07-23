@@ -607,7 +607,14 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Key Findings</h2>
 
-    <div class="figure-card" style="margin-bottom: 1rem;">
+    <div class="finding-card">
+      <span class="f-label">Finding 1:</span><span class="f-claim">No current VLM solves the benchmark.</span>
+      <p>The best model finds and sits on the target in only 16.8% of episodes, and four of the nine sit on it in at
+      most 0.2%. Every model shares the same sharp stage-by-stage drop: most of the task is lost between finding and
+      reaching, and again between reaching and interacting.</p>
+    </div>
+
+    <div class="figure-card" style="margin-bottom: 1rem; margin-top: 1.5rem;">
       <img src="static/imgs/fig_error.png" alt="Error analysis" />
     </div>
     <p class="figure-caption" style="margin-bottom: 2rem;">
@@ -615,13 +622,6 @@
       about the scene, but not about the body they now inhabit&mdash;a VLM trained to describe what it sees behaves
       like a ghost, fluent about the world but with no sense of its own body.
     </p>
-
-    <div class="finding-card">
-      <span class="f-label">Finding 1:</span><span class="f-claim">No current VLM solves the benchmark.</span>
-      <p>The best model finds and sits on the target in only 16.8% of episodes, and four of the nine sit on it in at
-      most 0.2%. Every model shares the same sharp stage-by-stage drop: most of the task is lost between finding and
-      reaching, and again between reaching and interacting.</p>
-    </div>
 
     <div class="finding-card">
       <span class="f-label">Finding 2:</span><span class="f-claim">Perception matters but is not the bottleneck.</span>
