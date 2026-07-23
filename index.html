@@ -235,6 +235,7 @@
     .carousel-arrow:hover { background: var(--brand); }
     .carousel-arrow.prev { left: -21px; }
     .carousel-arrow.next { right: -21px; }
+    .carousel-viewport { overflow: hidden; border-radius: 10px; }
     .carousel-dots { margin-top: 0.2rem; }
     .carousel-dots span {
       display: inline-block;
@@ -395,10 +396,12 @@
     </p>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepDemo(-1)" aria-label="Previous demo"><i class="fas fa-chevron-left"></i></button>
-      <video id="demoVideo" class="demo-video" autoplay muted playsinline controls>
-        <source src="static/videos/demo1.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div class="carousel-viewport">
+        <video id="demoVideo" class="demo-video" autoplay muted playsinline controls>
+          <source src="static/videos/demo1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       <button class="carousel-arrow next" onclick="stepDemo(1)" aria-label="Next demo"><i class="fas fa-chevron-right"></i></button>
       <div id="demoTitle" class="demo-title">Stairs Interaction</div>
       <div class="carousel-dots" id="demoDots"></div>
@@ -417,6 +420,24 @@
   </div>
 </section>
 <script>
+  function slideSwap(v, newSrc, dir, onSwap) {
+    v.style.transition = 'transform 0.45s ease';
+    v.style.transform = 'translateX(' + (-dir * 105) + '%)';
+    setTimeout(function () {
+      v.querySelector('source').src = newSrc;
+      v.load();
+      if (onSwap) onSwap();
+      v.style.transition = 'none';
+      v.style.transform = 'translateX(' + (dir * 105) + '%)';
+      void v.offsetWidth;
+      setTimeout(function () {
+        v.style.transition = 'transform 0.45s ease';
+        v.style.transform = 'translateX(0)';
+        v.play();
+      }, 30);
+    }, 460);
+  }
+
   var DEMOS = [
     { src: 'static/videos/demo1.mp4', title: 'Stairs Interaction' },
     { src: 'static/videos/demo2.mp4', title: 'Sit on Sofa' }
@@ -429,24 +450,25 @@
     s.onclick = function () { showDemo(i); };
     dotsEl.appendChild(s);
   });
-  function showDemo(i) {
-    demoIdx = (i + DEMOS.length) % DEMOS.length;
-    var v = document.getElementById('demoVideo');
-    v.querySelector('source').src = DEMOS[demoIdx].src;
-    v.load();
-    v.play();
-    document.getElementById('demoTitle').textContent = DEMOS[demoIdx].title;
-    dotsEl.querySelectorAll('span').forEach(function (s, j) {
-      s.className = j === demoIdx ? 'active' : '';
+  function showDemo(i, dir) {
+    var target = (i + DEMOS.length) % DEMOS.length;
+    if (target === demoIdx) return;
+    clearTimeout(demoTimer);
+    if (!dir) dir = 1;
+    demoIdx = target;
+    slideSwap(document.getElementById('demoVideo'), DEMOS[demoIdx].src, dir, function () {
+      document.getElementById('demoTitle').textContent = DEMOS[demoIdx].title;
+      dotsEl.querySelectorAll('span').forEach(function (s, j) {
+        s.className = j === demoIdx ? 'active' : '';
+      });
     });
   }
-  function stepDemo(delta) { showDemo(demoIdx + delta); }
+  function stepDemo(delta) { showDemo(demoIdx + delta, delta > 0 ? 1 : -1); }
   var demoTimer = null;
   document.getElementById('demoVideo').addEventListener('ended', function () {
     clearTimeout(demoTimer);
     demoTimer = setTimeout(function () { stepDemo(1); }, 3000);
   });
-  document.getElementById('demoVideo').addEventListener('play', function () { clearTimeout(demoTimer); });
 </script>
 
 <!-- ======================= VLM Action Intelligence ======================= -->
@@ -455,9 +477,11 @@
     <h2 class="title is-3">Do VLMs Have Action Intelligence?</h2>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepVlm(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-      <video id="vlmVideo" class="demo-video" autoplay muted playsinline controls>
-        <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
-      </video>
+      <div class="carousel-viewport">
+        <video id="vlmVideo" class="demo-video" autoplay muted playsinline controls>
+          <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
+        </video>
+      </div>
       <button class="carousel-arrow next" onclick="stepVlm(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
       <div id="vlmTitle" class="demo-title"><em>&ldquo;find the stairs and go to the second floor&rdquo;</em></div>
       <div class="carousel-dots" id="vlmDots"></div>
@@ -477,18 +501,20 @@
     s.onclick = function () { showVlm(i); };
     vlmDotsEl.appendChild(s);
   });
-  function showVlm(i) {
-    vlmIdx = (i + VLM_DEMOS.length) % VLM_DEMOS.length;
-    var v = document.getElementById('vlmVideo');
-    v.querySelector('source').src = VLM_DEMOS[vlmIdx].src;
-    v.load();
-    v.play();
-    document.getElementById('vlmTitle').innerHTML = '<em>' + VLM_DEMOS[vlmIdx].title + '</em>';
-    vlmDotsEl.querySelectorAll('span').forEach(function (s, j) {
-      s.className = j === vlmIdx ? 'active' : '';
+  function showVlm(i, dir) {
+    var target = (i + VLM_DEMOS.length) % VLM_DEMOS.length;
+    if (target === vlmIdx) return;
+    clearTimeout(vlmTimer);
+    if (!dir) dir = 1;
+    vlmIdx = target;
+    slideSwap(document.getElementById('vlmVideo'), VLM_DEMOS[vlmIdx].src, dir, function () {
+      document.getElementById('vlmTitle').innerHTML = '<em>' + VLM_DEMOS[vlmIdx].title + '</em>';
+      vlmDotsEl.querySelectorAll('span').forEach(function (s, j) {
+        s.className = j === vlmIdx ? 'active' : '';
+      });
     });
   }
-  function stepVlm(delta) { showVlm(vlmIdx + delta); }
+  function stepVlm(delta) { showVlm(vlmIdx + delta, delta > 0 ? 1 : -1); }
   var vlmTimer = null;
   var vlmVideoEl = document.getElementById('vlmVideo');
   vlmVideoEl.addEventListener('ended', function () {
