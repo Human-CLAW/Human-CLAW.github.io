@@ -9,7 +9,7 @@
   <meta name="keywords" content="HumanCLAW, Embodied AI, VLM Agent, Action Intelligence, Humanoid, Benchmark, Egocentric" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>HumanCLAW: Towards Closed-Loop Egocentric Spatial Action Intelligence</title>
+  <title>HumanCLAW: Can Vision-Language Models Act Through a Body?</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
@@ -475,19 +475,19 @@
             <span class="small-caps" style="color: var(--brand)">HumanCLAW:</span>
           </h1>
           <h2 class="subtitle is-3 publication-subtitle">
-            Towards Closed-Loop Egocentric Spatial Action Intelligence
+            Can Vision-Language Models Act Through a Body?
           </h2>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><a href="https://lisiyao21.github.io/">Li Siyao</a><sup>1,2,*,&Dagger;</sup>,</span>
             <span class="author-block"><a href="https://scholar.google.com/citations?user=7p8yEHAAAAAJ">Jiawei Gu</a><sup>3,*</sup>,</span>
-            <span class="author-block"><a href="https://choiszt.github.io/">Shuai Liu</a><sup>2</sup>,</span>
-            <span class="author-block"><a href="https://kairuihu.github.io/">Kairui Hu</a><sup>2</sup>,</span>
-            <span class="author-block"><a href="https://kunkun0w0.github.io/">Zekun Li</a><sup>1,4</sup>,</span>
+            <span class="author-block"><a href="https://choiszt.github.io/">Shuai Liu</a><sup>2,#</sup>,</span>
+            <span class="author-block"><a href="https://kairuihu.github.io/">Kairui Hu</a><sup>2,#</sup>,</span>
+            <span class="author-block"><a href="https://kunkun0w0.github.io/">Zekun Li</a><sup>1,4,&Dagger;</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=WR875gYAAAAJ">Linjie Li</a><sup>3</sup>,</span>
             <span class="author-block"><a href="https://tangchengcheng.github.io/">Chengcheng Tang</a><sup>1</sup>,</span>
             <span class="author-block"><a href="http://media.ee.ntu.edu.tw/personal/pcwu/">Po-Chen Wu</a><sup>1</sup>,</span>
             <span class="author-block"><a href="https://scholar.google.com/citations?user=7VlHGEgAAAAJ">Ivan Shugurov</a><sup>1</sup>,</span>
-            <span class="author-block"><a href="https://scholar.google.com/citations?user=WR875gYAAAAJ">Linjie Li</a><sup>3</sup>,</span>
             <span class="author-block"><a href="https://scholar.google.com/citations?user=eUAgpwkAAAAJ">Lingni Ma</a><sup>1</sup>,</span>
             <span class="author-block"><a href="https://zollhoefer.com/">Michael Zollhoefer</a><sup>1</sup>,</span>
             <span class="author-block"><a href="https://sizhean.github.io/">Sizhe An</a><sup>1</sup>,</span>
@@ -507,7 +507,7 @@
             <span><sup>5</sup>Northwestern University</span>
           </div>
           <div class="contrib-note">
-            <sup>*</sup>Equal contribution&nbsp;&nbsp;<sup>&Dagger;</sup>Intern at Meta&nbsp;&nbsp;<sup>&dagger;</sup>Equal advice
+            <sup>*</sup><sup>,#</sup>Equal contribution&nbsp;&nbsp;<sup>&Dagger;</sup>Intern at Meta&nbsp;&nbsp;<sup>&dagger;</sup>Corresponding authors
           </div>
 
           <div class="publication-links">
@@ -541,9 +541,9 @@
 <!-- ======================= Demo ======================= -->
 <section class="section" id="demo">
   <div class="container is-max-widescreen has-text-centered">
-    <h2 class="title is-3">Human Spatial Action &amp; Interaction in Closed Loop</h2>
+    <h2 class="title is-3">Action through a Physical Human Body in Closed Loop</h2>
     <p class="subtitle is-6" style="color: var(--text-muted) !important; max-width: 760px; margin: 0 auto 1.5rem;">
-      Dynamically decide what to do at any moment based on egocentric observation.
+      Deciding an executable action at every moment, from the egocentric view and a high-level instruction.
     </p>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepDemo(-1)" aria-label="Previous demo"><i class="fas fa-chevron-left"></i></button>
@@ -559,13 +559,13 @@
     </div>
     <div class="content has-text-justified" style="max-width: 760px; margin: 2rem auto 0;">
       <p>
-        <b>Action intelligence is not planning.</b> Planning is long-horizon, abstract, and
-        open-loop&mdash;a decision pre-made over several seconds toward a goal, like
-        <em>&ldquo;walk to the sofa&rdquo;</em> or <em>&ldquo;go upstairs.&rdquo;</em> Action
-        intelligence is dynamic and real-time, in a closed loop: deciding what to do in the
-        current sub-second, grounded in where the body is right now&mdash;<em>&ldquo;a wall is
-        ahead on my left, so my next step should go right.&rdquo;</em> This is not a reflex or a
-        scripted reaction, but a decision reasoned anew at every instant.
+        <b>Action intelligence</b> is the ability to decide, moment by moment, what a physical
+        body should do next <em>inside the execution loop</em>: each decision is executed, and its
+        physical outcome informs the next. We view it as the operational component of
+        <em>spatial intelligence</em>&mdash;converting spatial understanding into closed-loop
+        embodied decisions by selecting, parameterizing, and sequencing actions as their physical
+        consequences unfold. It concerns <em>what the body should do next</em>, not the
+        motor-control problem of how the chosen action is executed.
       </p>
     </div>
   </div>
@@ -943,6 +943,14 @@
       reaching, and again between reaching and interacting.</p>
     </div>
 
+    <div class="finding-card">
+      <span class="f-label">Finding 2:</span><span class="f-claim">Reasoning scaffolds lift action intelligence; longer history does not.</span>
+      <p>Everything that helps adds structure to the reasoning: a compact structured memory (NavSR 11% &rarr; 27%
+      from no history), a mid-level objective binding multi-step routines (InteractSR 0% &rarr; 18.9%), and a
+      short-context verifier (NavSR 2% &rarr; 27%). Merely lengthening text or visual history saturates&mdash;and
+      ten image frames actively hurt.</p>
+    </div>
+
     <div class="figure-card" style="margin-bottom: 1rem; margin-top: 1.5rem;">
       <img src="static/imgs/fig_error.png" alt="Error analysis" />
     </div>
@@ -953,31 +961,32 @@
     </p>
 
     <div class="finding-card">
-      <span class="f-label">Finding 2:</span><span class="f-claim">Perception matters but is not the bottleneck.</span>
+      <span class="f-label">Finding 3:</span><span class="f-claim">Perception matters but is not the bottleneck.</span>
       <p>Once a target genuinely enters the ego view it is almost always recognized. Finding breaks upstream, in
       bringing the target into view at all: the dominant deficit is ineffective exploration (38% of failures),
       not recognition (23%).</p>
     </div>
 
     <div class="finding-card">
-      <span class="f-label">Finding 3:</span><span class="f-claim">Egocentric self-localization is the navigation bottleneck.</span>
+      <span class="f-label">Finding 4:</span><span class="f-claim">Egocentric self-localization is the navigation bottleneck.</span>
       <p>Of 5,473 episodes where the agent actively finds the target, 68% still fail to navigate to it. Nearly
       two-thirds of these failures are errors of egocentric self-spatial awareness, surfacing as termination
       decisions that fail in both directions&mdash;stopping too early, or never confirming arrival.</p>
     </div>
 
     <div class="finding-card">
-      <span class="f-label">Finding 4:</span><span class="f-claim">Reaching is not interacting.</span>
+      <span class="f-label">Finding 5:</span><span class="f-claim">Reaching is not interacting.</span>
       <p>Given contact with the target, eventual success ranges from 90% (Gemini-3.1) down to 3.5%
       (InternVL3.5-38B)&mdash;an order of magnitude after navigation has already succeeded. The motion layer realizes
       the sit reliably; what is missing is issuing and confirming it at the right moment.</p>
     </div>
 
     <div class="finding-card">
-      <span class="f-label">Finding 5:</span><span class="f-claim">No current VLM perceives its own body.</span>
-      <p>Models fail with distinct fingerprints&mdash;over-claiming, premature stops, self-veto deadlock, never
-      terminating&mdash;and their success sets barely overlap (max Jaccard 0.43 with the best model). The nine-model
-      union solves only 59.7%, leaving 40% of the benchmark solved by no model.</p>
+      <span class="f-label">Finding 6:</span><span class="f-claim">No current VLM perceives its own body.</span>
+      <p>Collisions concentrate in the parts the agent does not watch: legs and feet collide most (28&ndash;45% of
+      steps), arms and hands next (20&ndash;35%), the head almost never (&lt;7%). Body awareness underlies 34% of
+      navigation failures and 81% of interaction failures&mdash;a VLM trained by visual question answering behaves
+      like a ghost, fluent about the world but oblivious to the body it now controls.</p>
     </div>
 
     <div class="ba-grid">
@@ -1017,9 +1026,11 @@
     <div id="succMeta"></div>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepSucc(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-      <video id="succVideo" class="demo-video" muted playsinline controls>
-        <source src="static/videos/gallery/succ_04_toilet.mp4" type="video/mp4" />
-      </video>
+      <div class="carousel-viewport">
+        <video id="succVideo" class="demo-video" muted playsinline controls>
+          <source src="static/videos/gallery/succ_04_toilet.mp4" type="video/mp4" />
+        </video>
+      </div>
       <button class="carousel-arrow next" onclick="stepSucc(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
       <div class="carousel-dots" id="succDots"></div>
     </div>
@@ -1616,16 +1627,20 @@
         });
       }
     }
-    function show(i) {
-      idx = (i + cfg.items.length) % cfg.items.length;
+    function show(i, dir) {
+      var target = (i + cfg.items.length) % cfg.items.length;
+      if (target === idx) return;
+      if (cfg.timer) clearTimeout(cfg.timer);
+      if (!dir) dir = 1;
+      idx = target;
       var it = cfg.items[idx];
-      video.querySelector('source').src = it.src;
-      video.load();
-      dotsEl.querySelectorAll('span').forEach(function (s, j) { s.className = j === idx ? 'active' : ''; });
-      renderMeta(it);
+      slideSwap(video, it.src, dir, function () {
+        dotsEl.querySelectorAll('span').forEach(function (s, j) { s.className = j === idx ? 'active' : ''; });
+        renderMeta(it);
+      });
     }
     renderMeta(cfg.items[0]);
-    cfg.step = function (d) { show(idx + d); };
+    cfg.step = function (d) { show(idx + d, d > 0 ? 1 : -1); };
     return cfg;
   }
 
@@ -1643,10 +1658,56 @@
       { id: '104348328 · ep21', src: 'static/videos/gallery/succ_09_bed.mp4',
         instr: 'find a <b>bed</b>, navigate to it, and sit on it',
         task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
-        note: 'Extended navigation through the house to reach the bed and sit down.' }
+        note: 'Extended navigation through the house to reach the bed and sit down.' },
+      { id: '106879080 · ep24', model: 'Gemini-3.1',
+        src: 'static/videos/gallery/succ_005_bed.mp4',
+        instr: 'find a <b>bed</b>, navigate to it, and sit on it' },
+      { id: '106878867 · ep5', model: 'Gemma-4-31B',
+        src: 'static/videos/gallery/succ_006_bed.mp4',
+        instr: 'find a <b>bed</b>, navigate to it, and sit on it' },
+      { id: '104348028 · ep8', model: 'InternVL3.5-38B',
+        src: 'static/videos/gallery/succ_007_potted_plant.mp4',
+        instr: 'find a <b>potted plant</b> and navigate to it' },
+      { id: '104862384 · ep27', model: 'Gemma-4-31B',
+        src: 'static/videos/gallery/succ_038_toilet.mp4',
+        instr: 'find a <b>toilet</b>, navigate to it, and sit on it' },
+      { id: '102816114 · ep0', model: 'Qwen3.6-35B-A3B',
+        src: 'static/videos/gallery/succ_002_chair.mp4',
+        instr: 'find a <b>chair</b> and navigate to it' },
+      { id: '103997586 · ep16', model: 'Gemini-3.1',
+        src: 'static/videos/gallery/succ_013_chair.mp4',
+        instr: 'find a <b>chair</b> and navigate to it' },
+      { id: '102344094 · ep11', model: 'Gemini-3.1',
+        src: 'static/videos/gallery/succ_029_potted_plant.mp4',
+        instr: 'find a <b>potted plant</b> and navigate to it' },
+      { id: '106878867 · ep25', model: 'Claude-4.8',
+        src: 'static/videos/gallery/succ_070_couch.mp4',
+        instr: 'find a <b>couch</b>, navigate to it, and sit on it' },
+      { id: '104348010 · ep15', model: 'Gemini-2.5',
+        src: 'static/videos/gallery/succ_004_bed.mp4',
+        instr: 'find a <b>bed</b>, navigate to it, and sit on it' },
+      { id: '102817140 · ep4', model: 'Claude-4.8',
+        src: 'static/videos/gallery/succ_077_potted_plant.mp4',
+        instr: 'find a <b>potted plant</b> and navigate to it' },
+      { id: '106878858 · ep22', model: 'Gemini-3.1',
+        src: 'static/videos/gallery/succ_079_toilet.mp4',
+        instr: 'find a <b>toilet</b>, navigate to it, and sit on it' },
+      { id: '105515211 · ep3', model: 'Gemini-2.5',
+        src: 'static/videos/gallery/succ_099_chair.mp4',
+        instr: 'find a <b>chair</b> and navigate to it' },
+      { id: '104862501 · ep18', model: 'GPT-5.5',
+        src: 'static/videos/gallery/succ_gpt_ep18_chair.mp4',
+        instr: 'find a <b>chair</b> and navigate to it' },
+      { id: '102817140 · ep22', model: 'GPT-5.5',
+        src: 'static/videos/gallery/succ_gpt_ep22_bed.mp4',
+        instr: 'find a <b>bed</b>, navigate to it, and sit on it' }
     ]
   });
   function stepSucc(d) { SUCC.step(d); }
+  document.getElementById('succVideo').addEventListener('ended', function () {
+    if (SUCC.timer) clearTimeout(SUCC.timer);
+    SUCC.timer = setTimeout(function () { SUCC.step(1); }, 5000);
+  });
 
   var errOpen = -1;
   function errSelect(i) {
