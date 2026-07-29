@@ -282,8 +282,8 @@
     .carousel-arrow.prev { left: -21px; }
     .carousel-arrow.next { right: -21px; }
     .carousel-viewport { overflow: hidden; border-radius: 10px; }
-    #success-gallery .demo-carousel, #failure-gallery .demo-carousel { max-width: 720px; }
-    #success-gallery .gallery-meta, #failure-gallery .gallery-meta { max-width: 720px; }
+    #success-gallery .demo-carousel, #failure-gallery .demo-carousel { max-width: 860px; }
+    #success-gallery .gallery-meta, #failure-gallery .gallery-meta { max-width: 860px; }
     .carousel-dots { margin-top: 0.2rem; }
     .carousel-dots span {
       display: inline-block;
@@ -387,6 +387,79 @@
     .meta-cat { font-weight: 700; color: var(--text-strong); font-size: 0.98rem; margin-top: 0.1rem; }
     .meta-cat .cat-code { font-size: 0.74rem; color: var(--text-muted); font-weight: 500; margin-left: 0.45rem; font-family: monospace; }
     .meta-note { font-size: 0.92rem; color: var(--text) !important; margin-top: 0.25rem !important; }
+
+    /* --- failure-analysis tabs + fold panel --- */
+    .err-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;
+      max-width: 1000px; margin: 0 auto 0.6rem; }
+    .err-tabs .tldr-card { padding: 0.5rem 0.7rem; text-align: left; }
+    .err-tabs .tag-line { margin-bottom: 0.1rem; font-size: 0.58rem; }
+    .err-tabs h4 { font-size: 0.78rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    @media (max-width: 900px) { .err-tabs { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .err-tabs { grid-template-columns: repeat(2, 1fr); } }
+    .err-panel.open { max-height: 8000px; }
+    .err-content { text-align: center; }
+    .err-content .err-video { width: 100%; max-width: 860px; border-radius: 10px; display: block;
+      margin: 0 auto; background: #000; }
+    .err-content .tl { position: relative; height: 22px; background: #f2f0ea; border: 1px solid #dbd6cb;
+      border-radius: 3px; margin: 0.45rem auto 0.2rem; cursor: pointer; width: 100%; max-width: 860px; }
+    .err-content .tl .seg { position: absolute; top: 2px; height: 18px; background: rgba(163,40,42,.32); }
+    .err-content .tl .pin { position: absolute; top: -3px; width: 3px; height: 28px; background: #a3282a; border-radius: 1px; }
+    .err-content .tl .vis { position: absolute; bottom: 0; height: 4px; background: #2e6b34; }
+    .err-content .tl .cur { position: absolute; top: 0; width: 2px; height: 22px; background: #111; pointer-events: none; }
+    .err-content > .key { font-size: 0.74rem; color: var(--text-muted); margin: 0 auto 0.4rem; display: flex;
+      gap: 1rem; flex-wrap: wrap; justify-content: center; max-width: 860px; font-family: 'Noto Sans', sans-serif; }
+    .err-content > .key i { display: inline-block; width: 11px; height: 9px; vertical-align: middle; margin-right: 0.25rem; }
+    .err-chip { display: block; margin: 0 auto 0.6rem; font-size: 0.95rem; color: var(--text);
+      font-family: 'Noto Sans', sans-serif; }
+    .err-chip > span { margin: 0 0.2rem; }
+    .err-chip .err-chip-model { font-weight: 700; }
+    .err-chip .err-chip-sep { color: #c3c9d6; }
+    /* --- error-align analysis panel (site typography) --- */
+    .err-analysis { max-width: 1000px; margin: 0.9rem auto 0; text-align: left;
+      font-family: 'Noto Sans', sans-serif; font-size: 0.92rem; line-height: 1.6; color: var(--text); }
+    .err-analysis .mo { border: 1px solid #e3e6ee; border-radius: 10px; background: #fff;
+      padding: 1rem 1.1rem; margin: 1rem 0; }
+    .err-analysis .mo-top { display: grid; grid-template-columns: 300px minmax(0,1fr); gap: 1.1rem; }
+    .err-analysis .shot { cursor: pointer; }
+    .err-analysis .shot img { width: 100%; border: 1px solid #e3e6ee; border-radius: 8px; display: block; }
+    .err-analysis .panlab { font-size: 0.66rem; color: var(--text-muted); text-align: left;
+      margin: 0.4rem 0 0.15rem; font-family: 'Google Sans', 'Noto Sans', sans-serif;
+      letter-spacing: 0.03em; text-transform: uppercase; font-weight: 600; }
+    .err-analysis .panlab:first-child { margin-top: 0; }
+    .err-analysis .stamp { font-family: 'Google Sans', 'Noto Sans', sans-serif; font-weight: 600;
+      font-size: 0.78rem; color: var(--text-muted); text-align: center; padding-top: 0.3rem; }
+    .err-analysis .stamp b { color: #a3282a; }
+    .err-analysis .gt { font-size: 0.85rem; color: var(--text-muted); border-left: 2px solid #e3e6ee;
+      padding-left: 0.6rem; margin-top: 0.5rem; }
+    .err-analysis .gt b { color: var(--text-strong); }
+    .err-content mark { padding: 0.02rem 0.15rem; border-radius: 3px; font-weight: 600; }
+    .err-content mark.bad { background: #f6cfcd; color: #5e1517; }
+    .err-content mark.ok { background: #cfe7cf; color: #14401b; }
+    .err-legend { font-size: 0.74rem; color: var(--text-muted); display: flex; gap: 1.3rem;
+      justify-content: center; margin: 0.5rem auto 0; font-family: 'Noto Sans', sans-serif; }
+    .err-analysis .flds { border-radius: 8px; overflow: hidden; }
+    .err-analysis .fld { font-size: 0.9rem; margin: 0; line-height: 1.6; padding: 0.42rem 0.65rem; }
+    .err-analysis .fld:nth-child(odd) { background: #f3f7fc; }
+    .err-analysis .fld:nth-child(even) { background: #ffffff; }
+    .err-analysis .fld .fl { font-weight: 700; color: var(--accent2); margin-right: 0.35rem; }
+    .err-analysis .fld.act { font-family: monospace; font-size: 0.84rem; }
+    .err-analysis .fld.act .fl, .err-analysis .fld.ver .fl { font-family: 'Google Sans', 'Noto Sans', sans-serif; }
+    .err-analysis .fld.ver .fl { color: #7a4d9e; }
+    .err-analysis .anal { margin-top: 0.7rem; padding-top: 0.6rem; border-top: 1px dashed #e3e6ee;
+      font-size: 0.9rem; line-height: 1.6; text-align: left; }
+    .err-analysis .case-anal { border-top: 0; background: #fff; border: 1px solid #e3e6ee;
+      border-radius: 10px; padding: 0.8rem 1.1rem; margin: 1rem 0 0; }
+    .err-analysis .anal .fl { font-weight: 700; color: var(--accent2); margin-right: 0.35rem; }
+    .err-analysis .key { font-size: 0.74rem; color: var(--text-muted); display: flex; gap: 1rem; flex-wrap: wrap; }
+    .err-analysis .fix { background: #f0f7f0; border-left: 3px solid #1d7a34; padding: 0.55rem 0.75rem;
+      border-radius: 6px; font-size: 0.9rem; margin-top: 0.9rem; }
+    .err-analysis .fix .who { font-family: 'Google Sans', 'Noto Sans', sans-serif; font-weight: 700;
+      font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: #1d7a34;
+      display: block; margin-bottom: 0.15rem; }
+    .err-analysis .fix code { font-family: monospace; font-size: 0.86em; background: #eef1f6;
+      padding: 0.05rem 0.3rem; border-radius: 3px; }
+    .err-analysis .mo-top.mo-solo { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    @media (max-width: 640px) { .err-analysis .mo-top { grid-template-columns: 1fr; } }
   </style>
 </head>
 
@@ -940,30 +1013,566 @@
 <!-- ======================= Case Galleries ======================= -->
 <section class="section section-alt" id="success-gallery">
   <div class="container is-max-widescreen has-text-centered">
-    <h2 class="title is-3">Gallery</h2>
+    <h2 class="title is-3">Success Examples</h2>
+    <div id="succMeta"></div>
     <div class="demo-carousel">
       <button class="carousel-arrow prev" onclick="stepSucc(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-      <video id="succVideo" class="demo-video" autoplay muted loop playsinline controls>
+      <video id="succVideo" class="demo-video" muted playsinline controls>
         <source src="static/videos/gallery/succ_04_toilet.mp4" type="video/mp4" />
       </video>
       <button class="carousel-arrow next" onclick="stepSucc(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
       <div class="carousel-dots" id="succDots"></div>
     </div>
-    <div id="succMeta" class="gallery-meta is-success"></div>
   </div>
 </section>
 
 <section class="section section-alt" id="failure-gallery">
   <div class="container is-max-widescreen has-text-centered">
-    <div class="demo-carousel">
-      <button class="carousel-arrow prev" onclick="stepFail(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-      <video id="failVideo" class="demo-video" autoplay muted loop playsinline controls>
-        <source src="static/videos/gallery/fail_01_explore.mp4" type="video/mp4" />
-      </video>
-      <button class="carousel-arrow next" onclick="stepFail(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-      <div class="carousel-dots" id="failDots"></div>
+    <h2 class="title is-3">Failure Examples &amp; Analysis</h2>
+    <div class="err-tabs" id="errTabs">
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(0)">
+        <div class="card-head"><div>
+          <div class="tag-line">Find</div>
+          <h4>Ineffective actions</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(1)">
+        <div class="card-head"><div>
+          <div class="tag-line">Find</div>
+          <h4>Ineffective exploration</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(2)">
+        <div class="card-head"><div>
+          <div class="tag-line">Find</div>
+          <h4>Midpoint give up</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(3)">
+        <div class="card-head"><div>
+          <div class="tag-line">Find</div>
+          <h4>Near but not in view</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(4)">
+        <div class="card-head"><div>
+          <div class="tag-line">Find</div>
+          <h4>In view not seen</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(5)">
+        <div class="card-head"><div>
+          <div class="tag-line">Find</div>
+          <h4>Unaware jammed</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(6)">
+        <div class="card-head"><div>
+          <div class="tag-line">Nav</div>
+          <h4>Lost target</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(7)">
+        <div class="card-head"><div>
+          <div class="tag-line">Nav</div>
+          <h4>Stop while far</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(8)">
+        <div class="card-head"><div>
+          <div class="tag-line">Nav</div>
+          <h4>Target hallucination</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(9)">
+        <div class="card-head"><div>
+          <div class="tag-line">Nav</div>
+          <h4>Unaware arrived/touch</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(10)">
+        <div class="card-head"><div>
+          <div class="tag-line">Nav</div>
+          <h4>Unaware jammed</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(11)">
+        <div class="card-head"><div>
+          <div class="tag-line">Interact</div>
+          <h4>Sit on air</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(12)">
+        <div class="card-head"><div>
+          <div class="tag-line">Interact</div>
+          <h4>Sit wrong</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
+      <div class="tldr-card collapsible err-tab" onclick="errSelect(13)">
+        <div class="card-head"><div>
+          <div class="tag-line">Interact</div>
+          <h4>Stand after sit</h4>
+        </div><i class="fas fa-chevron-down fold-icon"></i></div>
+      </div>
     </div>
-    <div id="failMeta" class="gallery-meta is-fail"></div>
+    <div class="fw-panel err-panel" id="errPanel">
+      <div class="fw-panel-inner">
+        <div class="err-content" data-i="0" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.6-35B-A3B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>couch</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/find_ineffective_actions__017.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='44.0'>
+<div class='pin' style='left:63.64%'></div>
+<div class='pin' style='left:64.77%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='28.0'><img src='static/imgs/errcases/find_ineffective_actions__017/step_056.jpg' loading='lazy'><div class='stamp'>step 56 &nbsp;·&nbsp; <b>28.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a large bed with a teal frame and grey bedding on the left, a dark brown wall or cabinet directly in front and slightly to the left, a doorway leading to another room with a rug on the floor to the right, and a white radiator on the wall further to the right. <mark class='ok'>The target object (couch) is not visible.</mark> The near-body lane is clear, but the forward path is partially blocked by the wall/cabinet on the left and the bed on the left.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find the couch and sit on it. <mark class='ok'>I have been scanning the room by turning left and right repeatedly (steps 17-55), but the couch is still not visible.</mark> The current view shows a wall/cabinet and a doorway. <mark class='ok'>The previous turns to the right have not revealed the couch or a clear path to it.</mark> The history mentions a doorway to another room. I need to turn left to face the open area/passage to the left and move towards it to search for the couch, as the right side seems to be a dead end or leads to a bathroom (based on the radiator and doorway).</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Turn left to face the open area/passage to the left and move towards it to search for the couch.</mark></p>
+<p class='fld'><span class='fl'>low-level reason:</span> I am currently facing a large dark brown wall/cabinet which blocks my forward path. The previous turns to the right have not revealed the couch or a clear path to it. The history mentions a doorway to another room. <mark class='bad'>I need to turn left to face the open area/passage to the left and move towards it to search for the couch.</mark> A 90-degree turn to the left should align me with the open floor space and the bed, allowing me to move forward and potentially find the couch in the next room or area.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Turn&lt;left&gt;&lt;90&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='28.5'><img src='static/imgs/errcases/find_ineffective_actions__017/step_057.jpg' loading='lazy'><div class='stamp'>step 57 &nbsp;·&nbsp; <b>28.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a large bed with a teal frame and grey bedding on the right, a bedside table with a lamp, and a dark brown wall or cabinet directly in front and slightly to the left. The target object (couch) is not visible. The near-body lane is clear, but the forward path is blocked by the wall/cabinet.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find the couch and sit on it. I have been scanning the room by turning left and right repeatedly (steps 17-56), but the couch is still not visible. The current view shows a wall/cabinet blocking the forward path and a bed to the right. The history mentions a doorway to another room. <mark class='ok'>Since I have been turning in place without finding the couch, I need to move towards the open area/passage to search for it.</mark> <mark class='ok'>The previous turns have been oscillating.</mark> <mark class='bad'>I need to commit to a direction that leads to an open passage.</mark> Looking at the history, there was a mention of a doorway to another room. I should turn towards that open area.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Turn right to face the open doorway/passage and move towards it to search for the couch in the next room.</mark></p>
+<p class='fld'><span class='fl'>low-level reason:</span> I am currently facing a large dark brown wall/cabinet which blocks my forward path. <mark class='bad'>The open floor space and potential passage are to my right.</mark> To follow the plan of searching the next room or area, I need to turn right to face this doorway/passage. <mark class='bad'>This aligns with the previous successful turns that revealed the doorway.</mark></p>
+<p class='fld act'><span class='fl'>low-level action:</span> Turn&lt;right&gt;&lt;90&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> At step 56 the agent decides to turn left, and at step 57 it decides to turn right, back to where it was just facing. It keeps spinning in place like this because it has no awareness of its own recent actions.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="1" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.6-27B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>chair</b> and navigate to it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/find_ineffective_exploration__011.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:43.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='21.5'><img src='static/imgs/errcases/find_ineffective_exploration__011/step_043.jpg' loading='lazy'><div class='stamp'>step 43 &nbsp;·&nbsp; <b>21.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a wooden wall structure with horizontal planks, about 0.5 meters from me; a stone-paved patio area extending forward and to the right, about 1 meter from me; and a grassy area, about 1 meter from me. <mark class='ok'>The target object (a chair) is not visible.</mark> The near-body lane is clear to the right.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find a chair and move until touching it. <mark class='ok'>I have been navigating along the exterior of a wooden structure on a stone patio for many steps without finding the chair.</mark> The previous action was a walk forward. The current view shows the same wall and patio. To find the chair, I need to look in a different direction. I will turn right to scan for the chair.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Turn right to scan for the chair.</mark></p>
+<p class='fld'><span class='fl'>low-level reason:</span> I have been walking forward for many steps without finding the chair. The current view shows the same wall and patio. <mark class='bad'>To find the chair, I need to look in a different direction.</mark> <mark class='bad'>Turning right will allow me to scan the area to the right of the current view.</mark></p>
+<p class='fld act'><span class='fl'>low-level action:</span> Turn&lt;right&gt;&lt;90&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The agent spends all 100 steps searching outdoors. It never makes the simple inference that a chair is far more likely to be found inside the house.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="2" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.6-35B-A3B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>couch</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/find_midpoint_give_up__020.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:49.00%'></div>
+<div class='pin' style='left:50.00%'></div>
+<div class='pin' style='left:51.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='24.5'><img src='static/imgs/errcases/find_midpoint_give_up__020/step_049.jpg' loading='lazy'><div class='stamp'>step 49 &nbsp;·&nbsp; <b>24.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a long light wood floor extending forward, a dark blue wall on the left, and a doorway/opening on the right leading to a bedroom with a bed and a large plant. The target object (couch) is not visible in the current view. <mark class='bad'>The near-body lane is clear</mark>.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The previous mid-level goal was to &#x27;Continue moving forward down the hallway to find the couch.&#x27; The current view shows the hallway continuing forward. The bedroom on the right is visible but does not contain the couch. The hallway seems to end or turn ahead. I need to continue moving forward to reach the end of the hallway or find the next room where the couch might be located.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='ok'>Continue moving forward down the hallway to find the couch</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The hallway is clear ahead. The previous action was walking forward. To make progress towards the target (which is likely at the end of this hallway or in a room further down), I should continue walking forward.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Walk&lt;forward&gt;&lt;normal&gt;</p>
+<p class='fld ver'><span class='fl'>verifier → <mark class='bad'>Turn&lt;right&gt;&lt;90&gt;</mark>:</span> <mark class='ok'>The straight-forward lane is blocked by a wall/partition and furniture, making a forward walk impossible without collision</mark>. The agent needs to turn to find an open path.</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='25.0'><img src='static/imgs/errcases/find_midpoint_give_up__020/step_050.jpg' loading='lazy'><div class='stamp'>step 50 &nbsp;·&nbsp; <b>25.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> <mark class='ok'>The current view is almost entirely a dark, solid surface, likely a wall or a very close obstacle</mark>, with only a tiny sliver of the floor visible at the very bottom edge. The target object (couch) is not visible. <mark class='ok'>The near-body lane is blocked by this immediate obstacle</mark>.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The previous mid-level goal was to &#x27;Continue moving forward down the hallway to find the couch.&#x27; However, the current view shows that the agent is facing a wall or obstacle directly, making forward movement impossible. <mark class='ok'>The verifier in the previous step (step 49) correctly identified this and suggested a turn</mark>. The agent needs to re-orient itself to find the open path and the couch. Since the previous action was a turn (implied by the verifier&#x27;s rejection of walking forward), and the current view is still blocked, the agent likely needs to continue turning or adjust its position to find the clear path.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> Turn to find the open path and locate the couch.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The agent is currently facing a wall/obstacle. To proceed, it must turn away from this obstacle to find the open hallway or room where the couch is located. <mark class='bad'>A right turn is a reasonable action to scan the environment and find the path, as suggested by the previous verifier&#x27;s rejection</mark> of walking forward. This will help the agent re-orient towards the open space.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Turn&lt;right&gt;&lt;90&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='25.5'><img src='static/imgs/errcases/find_midpoint_give_up__020/step_051.jpg' loading='lazy'><div class='stamp'>step 51 &nbsp;·&nbsp; <b>25.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a long light wood floor extending forward, a dark blue wall on the left, and a doorway/opening on the right leading to a bedroom with a bed and a large plant. The target object (couch) is not visible in the immediate vicinity. The near-body lane is clear and open ahead.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The previous mid-level goal was to &#x27;Turn to find the open path and locate the couch.&#x27; <mark class='bad'>The agent has just turned right (step 50) and is now facing down the hallway again</mark>. The view shows the hallway is clear ahead. <mark class='ok'>The previous history shows the agent was walking down this hallway for many steps (41-48) before getting blocked</mark>. Since the couch is not visible yet, the agent needs to continue moving forward down this hallway to find it.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Continue moving forward down the hallway to find the couch</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> <mark class='bad'>The agent is now facing the correct direction (down the hallway) after the previous turn</mark>. The path ahead is clear. To find the couch, the agent must continue its progress down the hallway. Therefore, walking forward is the appropriate action.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Walk&lt;forward&gt;&lt;normal&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> At step 49, the verifier's analysis is correct &mdash; there is a wall ahead &mdash; but its conclusion to turn right is wrong. After the turn, at steps 50 and 51, the agent completely confuses its earlier goal and direction, and ends up walking back the way it came.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="3" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Gemma-4-31B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>bed</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/find_near_but_not_in_view__007.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='48.0'>
+<div class='pin' style='left:2.08%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='1.0'><img src='static/imgs/errcases/find_near_but_not_in_view__007/step_002.jpg' loading='lazy'><div class='stamp'>step 2 &nbsp;·&nbsp; <b>1.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a glass partition wall, about 0.1 meters from me; a wooden floor hallway, about 0.5 meters from me; and a brown wall/doorframe, about 1 meter from me. <mark class='ok'>The bed is not visible.</mark> The near-body lane is clear.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> I have started moving forward into the hallway as planned. <mark class='ok'>The path ahead is clear and unobstructed, and the bed is still not visible.</mark> <mark class='bad'>I will continue the previous mid-level goal of walking forward to explore the hallway and locate the bed.</mark></p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Walk forward into the hallway to search for the bed.</mark></p>
+<p class='fld'><span class='fl'>low-level reason:</span> The forward lane is clear and I have already initiated movement with a slow walk. <mark class='bad'>I can now increase the speed to normal to make efficient progress down the hallway.</mark></p>
+<p class='fld act'><span class='fl'>low-level action:</span> Walk&lt;forward&gt;&lt;normal&gt;</p>
+<p class='fld ver'><span class='fl'>verifier &mdash; kept it:</span> The path forward is clear of obstacles, allowing the humanoid to move toward the goal.</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The bed is actually just behind the agent, to its rear right. If it had looked around at the start instead of rushing down the path ahead, it would have found the bed immediately.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="4" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">InternVL3.5-38B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>couch</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/find_target_in_view_but_not_seen__019.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='17.5'>
+<div class='pin' style='left:97.14%'></div>
+<div class='pin' style='left:42.86%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='7.5'><img src='static/imgs/errcases/find_target_in_view_but_not_seen__019/step_015.jpg' loading='lazy'><div class='stamp'>step 15 &nbsp;·&nbsp; <b>7.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see <mark class='ok'>a chair, about 1 meter from me</mark>; and <mark class='ok'>a doorway leading to another room</mark>, about 2 meters from me. <mark class='bad'>The target object, the couch, is not visible</mark>. The near-body lane is clear.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The current view shows a clear path towards the doorway, which might lead to the room where the couch is located. Since the couch is not visible, the next step is to explore the area by moving towards the doorway.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> Move towards the doorway to explore the next room.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The forward lane is clear and the doorway is directly ahead, making it safe to walk forward at a normal speed.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Walk&lt;forward&gt;&lt;normal&gt;</p>
+<p class='fld ver'><span class='fl'>verifier → Turn&lt;right&gt;&lt;90&gt;:</span> <mark class='bad'>The forward lane has a chair, which would cause a collision</mark>.</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The agent never sees the yellow couch that the arrow points to. The verifier then hallucinates the distance to the chair ahead and turns the agent away, throwing away the chance completely.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="5" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Gemini-2.5</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>bed</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/find_unaware_jammed__003.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:53.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='26.5'><img src='static/imgs/errcases/find_unaware_jammed__003/step_053.jpg' loading='lazy'><div class='stamp'>step 53 &nbsp;·&nbsp; <b>26.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> <mark class='bad'>From a high-angle view</mark>, I can see <mark class='bad'>the white spiral staircase I am on</mark>, which is directly below and in front of me. The wooden herringbone-patterned floor of the lower level is visible to the left, and a dark blue wall is to the right. <mark class='ok'>The target object, the bed, is not visible.</mark> The near-body lane is clear for climbing the next step.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level goal is to find and sit on a bed, which requires ascending this spiral staircase. After a long history of misalignment issues, <mark class='bad'>the last four actions were successful `Climb upstairs&lt;normal&gt;` commands</mark>. <mark class='bad'>I am making steady progress up the stairs</mark>. The best course of action is to continue this successful sequence.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> Continue climbing the spiral staircase to reach the upper floor.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> <mark class='bad'>I have successfully climbed several steps in a row</mark>. The current view shows the next step of the spiral staircase is directly in front of me and at my feet. To continue making progress towards the upper floor, I should execute another `Climb upstairs&lt;normal&gt;` action.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Climb upstairs&lt;normal&gt;</p>
+<p class='fld ver'><span class='fl'>verifier &mdash; kept it:</span> <mark class='bad'>The humanoid is positioned directly in front of the stairs, with the first step at its feet</mark>, making it appropriate to climb.</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> This is a spiral staircase, and the agent is stuck on the outside of the railing the whole time. It does not know where it is, and it never realizes that it is blocked.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="6" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.6-35B-A3B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>bed</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/nav_lost_target__006.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:33.00%'></div>
+<div class='pin' style='left:36.00%'></div>
+<div class='pin' style='left:37.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='18.0'><img src='static/imgs/errcases/nav_lost_target__006/step_036.jpg' loading='lazy'><div class='stamp'>step 36 &nbsp;·&nbsp; <b>18.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see <mark class='ok'>a large grey bed with white pillows and a grey blanket, a red rug in front of the bed</mark>, a white sofa to the right, and a small side table with a plant. <mark class='ok'>The bed is clearly visible and is the target object</mark>. <mark class='bad'>The near-body lane is clear, with light wood flooring leading towards the bed</mark>. The target object (the bed) is visible.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find the bed and sit on it. <mark class='ok'>The bed is now clearly visible in the current view</mark>. The previous mid-level goal was to turn right to find the bedroom, which has been successful. <mark class='ok'>Now, the goal is to approach the bed to touch it and then sit on it</mark>. I need to move forward towards the bed.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='ok'>Move forward towards the bed to reach it and prepare to sit</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The bed is visible and is the target. The path forward is clear. I need to move closer to the bed to eventually sit on it. Walking forward is the most direct action to approach the target.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Walk&lt;forward&gt;&lt;normal&gt;</p>
+<p class='fld ver'><span class='fl'>verifier → Turn&lt;right&gt;&lt;90&gt;:</span> <mark class='bad'>The straight-forward path is blocked by a wall/door frame structure immediately ahead</mark>. To reach the bed as instructed, <mark class='bad'>the humanoid needs to turn right to enter the bedroom space</mark>.</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The verifier misjudges where the agent's own body is, which forces an unnecessary turn. In the steps that follow, the agent does not have the spatial ability to find its way back to the target.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="7" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Gemini-3.1</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>chair</b> and navigate to it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/nav_stop_while_far__009.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='16.0'>
+<div class='pin' style='left:100.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='15.5'><img src='static/imgs/errcases/nav_stop_while_far__009/step_031.jpg' loading='lazy'><div class='stamp'>step 32 &nbsp;·&nbsp; <b>16.0s</b><br><span style='font-weight:400'>frame from step 31 — this step renders no frame of its own</span></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a kitchen island directly ahead, about 0.1 meters away; and <mark class='bad'>two bar stools directly ahead, touching the near-body area</mark>. <mark class='bad'>The target chair (bar stool) is visible directly ahead and touching the humanoid</mark>. <mark class='bad'>The near-body lane is blocked by the target object</mark>.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> <mark class='bad'>The humanoid has walked forward and is now touching the target bar stool. The distance to the target is zero, fulfilling the high-level instruction</mark>.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Stop/Stand as the goal is completed</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The humanoid is touching the target chair, so the high-level instruction is fully completed. The appropriate action is to Stop/Stand.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Stop/Stand</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The agent fails to understand where its own body is &mdash; it declares that it is &ldquo;touching&rdquo; the target while there is still clear distance left.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="8" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.6-27B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>chair</b> and navigate to it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/nav_target_hallucination__012.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:99.00%'></div>
+<div class='pin' style='left:30.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='15.0'><img src='static/imgs/errcases/nav_target_hallucination__012/step_030.jpg' loading='lazy'><div class='stamp'>step 30 &nbsp;·&nbsp; <b>15.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a white desk with a fan and a small structure on it, about 0.5 meters from me; <mark class='ok'>a black chair in the middle of the room on a circular rug, about 0.1 meters from me</mark>; and a potted plant on the right, about 0.5 meters from me. <mark class='ok'>The target object (black chair) is visible</mark>. The near-body lane is clear but very close to the chair.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find the chair and move until touching it. I have identified the black chair and am currently extremely close to it (approx 0.1m). My previous actions have brought me right up to the chair. <mark class='bad'>I need to make the final contact to achieve zero distance</mark>. The previous mid-level goal was to make final contact, <mark class='bad'>which is still valid as I am not yet touching it</mark>.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Make final contact with the black chair</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> I am facing the chair and am extremely close (0.1m). <mark class='bad'>To achieve zero distance, I need to move forward slightly</mark>. A slow walk is appropriate to gently close the final gap without overshooting or colliding too hard. The path is clear directly ahead.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Walk&lt;forward&gt;&lt;slow&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='49.5'><img src='static/imgs/errcases/nav_target_hallucination__012/step_099.jpg' loading='lazy'><div class='stamp'>step 99 &nbsp;·&nbsp; <b>49.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a large round table or rug in the foreground, about 0.5 meters from me; a dark wall with a window and a doorway leading to another room, about 2 meters from me; and <mark class='bad'>a bed with a metal frame on the right edge, about 0.2 meters from me</mark>. <mark class='bad'>The target object (chair/bed) is visible on the right edge</mark>. The near-body lane is partially blocked by the round table/rug on the left and the bed on the right.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find the chair and move until touching it. <mark class='bad'>I have been side-stepping right to approach the furniture on the right</mark>. The current view shows the bed frame extremely close on the right, but <mark class='ok'>the verifier previously indicated I was not touching it yet</mark>. <mark class='bad'>I need to continue moving right to ensure contact with the target object</mark>.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Move towards the furniture on the right to touch it</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The target (bed/chair) is visible on the right edge and very close. To approach it and touch it, I need to move further to the right. A side step to the right will bring me closer to the target object. Given the previous verifier feedback, a slightly larger step might be needed to ensure contact.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Side step&lt;right&gt;&lt;0.20&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The instruction clearly states that the target is a chair. Later in the episode the agent starts to hallucinate: it calls the target a &ldquo;chair/bed&rdquo; and claims that it can see it.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="9" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.6-35B-A3B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>chair</b> and navigate to it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/nav_unaware_arrived_touch__009.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:55.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='27.5'><img src='static/imgs/errcases/nav_unaware_arrived_touch__009/step_055.jpg' loading='lazy'><div class='stamp'>step 55 &nbsp;·&nbsp; <b>27.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a black wire-frame chair with a black cushion in the immediate foreground on the left, a wooden table with white blocks and wooden sticks in the center, and a plain brown wall in the background. <mark class='ok'>The target chair is visible and very close, occupying the left foreground.</mark> The near-body lane is blocked by the chair and table.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The high-level instruction is to find the chair and move until touching it. The history shows repeated attempts to move forward or side-step to touch the chair. The current view shows the chair is still very close on the left. However, the chair is directly to the left and slightly forward. <mark class='bad'>A small forward movement might not be enough to touch it if it&#x27;s strictly to the side.</mark> <mark class='bad'>A side step left seems appropriate to close the remaining gap.</mark></p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Side step left to close the remaining gap and touch the black wire-frame chair.</mark></p>
+<p class='fld'><span class='fl'>low-level reason:</span> The target chair is visible and very close on the left. The previous actions were side steps to the left and a failed planner call. <mark class='bad'>To achieve &#x27;zero distance&#x27; or &#x27;touching&#x27;, I need to continue moving towards it.</mark> <mark class='bad'>A side step left is the most direct way to close the remaining gap</mark> without colliding with the table in the center.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Side step&lt;left&gt;&lt;0.25&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The agent only registers that the chair is &ldquo;very close&rdquo; and believes there is still a gap left, yet in the ego view its body and the chair already overlap. This is a failure of body-to-object spatial awareness.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="10" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Qwen3.5-27B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>chair</b> and navigate to it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/nav_unaware_jammed__002.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='50.0'>
+<div class='pin' style='left:16.00%'></div>
+<div class='pin' style='left:20.00%'></div>
+<div class='pin' style='left:86.00%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='43.0'><img src='static/imgs/errcases/nav_unaware_jammed__002/step_086.jpg' loading='lazy'><div class='stamp'>step 86 &nbsp;·&nbsp; <b>43.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a large desk surface in the immediate foreground left, about 0.1 meters from me; a black office chair in the center-left, about 0.1 meters from me; a TV on a white stand in the background right, about 2.0 meters from me. The target object (black office chair) is visible. <mark class='bad'>The near-body lane is blocked by the chair directly in front</mark>.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The goal is to touch the chair. The current view shows the black office chair is extremely close (0.1m) and directly in front of the humanoid. The history shows repeated attempts to walk forward slowly to close the gap, but <mark class='ok'>the verifier has consistently rejected Stop/Stand and insisted on forward movement</mark>. The chair is effectively at touching distance. The previous action was Walk&lt;forward&gt;&lt;slow&gt; which was accepted. The goal is to touch the chair. Since the chair is directly in front and at 0.1m, the goal is effectively achieved or requires a final micro-adjustment. Given the verifier&#x27;s pattern, I will attempt one more slow forward step to ensure contact, but if that fails, I will stop. However, looking at the image, the chair is right there. The previous step 81 had a verifier rejection saying &#x27;Walk&lt;forward&gt;&lt;slow&gt; would cause an immediate collision... Since the goal is to touch the chair, the humanoid should stop.&#x27; Wait, step 81 verifier rejection says &#x27;Verifier replaced Walk&lt;forward&gt;&lt;slow&gt; with Walk&lt;forward&gt;&lt;slow&gt; because...&#x27;. This is confusing. Let&#x27;s look at step 80. Step 80 verifier rejected Stop/Stand and said &#x27;A forward movement is needed&#x27;. Step 81 verifier replaced Walk with Walk because &#x27;it would cause an immediate collision... Since the goal is to touch the chair, the humanoid should stop.&#x27; This implies the action *should* have been Stop/Stand. But the system executed Walk. Now at step 86, I need to decide. The chair is at 0.1m. The goal is &#x27;touching the target, with zero distance&#x27;. 0.1m is very close. The history shows a loop of &#x27;Walk forward&#x27; being forced. I should try to stop now as the distance is minimal.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='ok'>Stop/Stand as the goal of touching the chair is achieved</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The chair is at 0.1m distance, effectively touching. The previous steps show a conflict where the verifier wants forward movement but also acknowledges collision. Given the proximity (0.1m), the goal of &#x27;touching&#x27; is practically met. I will choose Stop/Stand to finalize the task.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Stop/Stand</p>
+<p class='fld ver'><span class='fl'>verifier → Walk&lt;forward&gt;&lt;slow&gt;:</span> The goal is to touch the chair. <mark class='bad'>The chair is found but not yet touched. The humanoid needs to move forward to close the gap</mark>.</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The agent never realizes that it is actually blocked by the table; it claims it is blocked by the chair (even though the action it picks is a correct one). The verifier, however, judges that the chair is still some distance away and chooses to keep going.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="11" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Claude-4.8</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>couch</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/interact_sit_on_air__011.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='43.5'>
+<div class='pin' style='left:95.40%'></div>
+<div class='pin' style='left:96.55%'></div>
+<div class='pin' style='left:98.85%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='41.5'><img src='static/imgs/errcases/interact_sit_on_air__011/step_083.jpg' loading='lazy'><div class='stamp'>step 83 &nbsp;·&nbsp; <b>41.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a dark gray couch surface filling the lower-left and bottom-center foreground at essentially zero distance; a light wooden floor area extending across the center-right, about 1-3 meters from me; and a bright kitchen/dining area with white cabinets and a table in the upper area, about 3-4 meters from me. The couch (target) is clearly touching my body along the lower-left/bottom edge. The near-body lane ahead is partly blocked by the couch surface at close range.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The dark couch surface now occupies the entire lower-left and bottom foreground at zero distance, and I have executed multiple forward/side-step approach actions as directed by the verifier. <mark class='ok'>The approach requirement (body touching the couch) is satisfied</mark>. The instruction now requires me to sit. Since the couch is at my feet and beside me, <mark class='ok'>I should begin the sit setup by turning to bring my back toward the couch seat</mark>.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> Turn to align my back with the couch seat, then sit down on it.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The couch is firmly touching my body along the lower-left and bottom edge, so the approach phase is complete. <mark class='ok'>To sit I need my back toward the seat; a moderate left turn begins rotating so the couch comes behind me</mark>, marked as turn_for_sit.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Turn&lt;left&gt;&lt;90&gt;</p>
+<p class='fld ver'><span class='fl'>verifier → Turn&lt;left&gt;&lt;90&gt;:</span> <mark class='bad'>No couch is visible at zero distance</mark>; a dark surface ahead may be an obstacle, but no clear sitting target touching body. <mark class='bad'>Turn left is premature; should continue exploring/moving forward toward a couch</mark>.</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='42.0'><img src='static/imgs/errcases/interact_sit_on_air__011/step_084.jpg' loading='lazy'><div class='stamp'>step 84 &nbsp;·&nbsp; <b>42.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a dark cluttered furniture/wall region in the upper area, about 2-3 meters from me; a light wooden bench/table structure across the upper-center, about 1.5 meters from me; and a large light wooden floor/counter surface filling the lower and center foreground, about 0.5-1 meter from me. <mark class='bad'>No clear dark couch surface is touching my body at this angle; the near-body lane shows a large light surface that appears to be a counter/table rather than a couch</mark>.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> <mark class='ok'>My repeated turn-to-sit attempts have been consistently rejected by the verifier</mark>, which states no couch is at zero distance and that a dark surface may be an obstacle rather than a sitting target. <mark class='bad'>The current view shows light wooden counter/table surfaces ahead, not a couch seat</mark>. <mark class='bad'>This strongly suggests I have been pressing against furniture that is not the couch</mark>, or I am misaligned. I should stop attempting to sit and instead scan for the actual couch by turning in one consistent direction, then approach a clearly identifiable couch.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='bad'>Turn right to scan for the actual couch and a clear approach path before any sit setup</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The verifier repeatedly denies a touching couch and warns of obstacles ahead, so forward walking risks collision and turning to sit is premature. A moderate right turn scans the environment in one consistent direction to locate the real couch and a clear lane, following the guidance to search rather than repeatedly attempt sitting.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Turn&lt;right&gt;&lt;45&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='43.0'><img src='static/imgs/errcases/interact_sit_on_air__011/step_086.jpg' loading='lazy'><div class='stamp'>step 86 &nbsp;·&nbsp; <b>43.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a large light beige couch/sofa arm and seat filling the entire lower and bottom-center foreground at essentially zero distance, firmly touching my body; a dark wooden coffee table with a light strip in the center-right, about 1-1.5 meters from me; a light upholstered armchair in the upper-center, about 2 meters from me; and a patterned rug plus dark furniture/wall region in the upper area, about 2-3 meters from me. <mark class='ok'>The couch is visible and touching my body</mark>; the near-body lane is occupied by the couch itself.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> The large beige couch surface fills the entire bottom foreground at zero distance, firmly touching my body, which satisfies the approach requirement. In the previous step I turned left 90 degrees for sit setup. <mark class='bad'>The couch seat is now beneath/behind me</mark>. I should continue the sit sequence: since I have already turned for sit alignment, I can proceed to sit down on the couch.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> Sit down on the couch seat that is firmly touching my body.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> The couch is at zero distance filling the foreground and <mark class='bad'>I have completed the turn_for_sit alignment in the prior step</mark>. The seating surface height is a standard couch seat around 0.45m, so I execute Sit down to begin the sitting action, which requires 3-4 chunks.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Sit down&lt;0.45&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> At step 86 the couch is still clearly visible, but the agent misunderstands where the couch is relative to its own body &mdash; it claims the couch is behind it &mdash; and sits straight into the air.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="12" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Gemma-4-31B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>bed</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/interact_sit_wrong__004.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='22.0'>
+<div class='pin' style='left:88.64%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='19.5'><img src='static/imgs/errcases/interact_sit_wrong__004/step_039.jpg' loading='lazy'><div class='stamp'>step 39 &nbsp;·&nbsp; <b>19.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see <mark class='ok'>a white bed with linens, about 0.0 meters from me</mark>; a blue and grey rug, about 0.5 meters from me; and a wooden TV stand, about 1.5 meters from me. <mark class='ok'>The target bed is visible and I am touching it</mark>. The near-body lane is blocked by the bed.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> <mark class='ok'>I have successfully reached the bed and executed a turn to align my back to it</mark>. <mark class='bad'>I am now facing away from the bed, which is the correct orientation for sitting</mark>. According to the sitting sequence, I may optionally step back to ensure a clean descent, or proceed directly to sitting. I will continue the process of sitting on the bed.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> Sit down on the bed.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> <mark class='bad'>I am touching the bed and facing away from it</mark>. I will now begin the sitting motion. The bed height is approximately 0.45 meters.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Sit down&lt;0.45&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> The agent does turn its body around, but not to the right orientation. It can see the bed and believes it is about to sit on it &mdash; instead it sits down on the bedside table.</div>
+          </div>
+        </div>
+        <div class="err-content" data-i="13" style="display:none">
+          <div class="err-chip"><span class="err-chip-model">Gemma-4-31B</span><span class="err-chip-sep">&middot;</span><span>&ldquo;find a <b>toilet</b>, navigate to it, and sit on it&rdquo;</span></div>
+          <video class="err-video" muted playsinline controls preload="metadata">
+            <source src="static/videos/errcases/interact_stand_after_sit__007.mp4" type="video/mp4" /></video>
+          <div class='tl' data-dur='24.0'>
+<div class='pin' style='left:54.17%'></div>
+<div class='pin' style='left:56.25%'></div>
+<div class='cur'></div></div>
+          <div class='key'><span><i style='background:#a3282a;width:3px'></i>key moment</span><span>click to seek</span></div>
+          <div class="err-legend"><span><mark class='bad'>red highlight</mark> = incorrect claim</span><span><mark class='ok'>green highlight</mark> = correct</span></div>
+          <div class="err-analysis">
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='13.0'><img src='static/imgs/errcases/interact_stand_after_sit__007/step_026.jpg' loading='lazy'><div class='stamp'>step 26 &nbsp;·&nbsp; <b>13.0s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a wooden floor, about 0.1 meters from me; and a white sink, about 0.2 meters from me. <mark class='ok'>The target toilet is behind me and not visible</mark>. The near-body lane is clear.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> I have been executing the sitting sequence for three chunks. <mark class='ok'>To ensure the humanoid is fully and stably seated on the toilet, I will perform one final Sit down action before terminating the task</mark>.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='ok'>Sit on the toilet</mark>.</p>
+<p class='fld'><span class='fl'>low-level reason:</span> I am in the final stage of the sitting sequence. I will execute the Sit down action for a fourth consecutive chunk to complete the motion.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Sit down&lt;0.45&gt;</p>
+</div></div>
+</div>
+
+</div>
+<div class='mo'><div class='mo-top'>
+<div class='shot' data-t='13.5'><img src='static/imgs/errcases/interact_stand_after_sit__007/step_027.jpg' loading='lazy'><div class='stamp'>step 27 &nbsp;·&nbsp; <b>13.5s</b></div></div>
+<div><div class='flds'>
+<p class='fld'><span class='fl'>visual state:</span> From left to right, I can see a yellow cabinet, about 0.2 meters from me; a wooden floor, about 0.1 meters from me; and a white sink, about 0.1 meters from me. The target toilet is behind me and not visible. The near-body lane is clear.</p>
+<p class='fld'><span class='fl'>mid-level reason:</span> I have completed the sitting sequence by executing the Sit down action for four consecutive chunks. <mark class='ok'>I am now fully seated on the toilet. The high-level instruction is fully completed, so I will update the mid-level goal to Stop/Stand</mark>.</p>
+<p class='fld'><span class='fl'>mid-level goal:</span> <mark class='ok'>Stop/Stand</mark></p>
+<p class='fld'><span class='fl'>low-level reason:</span> The sitting task is finished. <mark class='ok'>According to the guidance, when sitting is completed, I must choose Stop/Stand with the additional_info &#x27;stop_after_sit&#x27;</mark>.</p>
+<p class='fld act'><span class='fl'>low-level action:</span> Stop/Stand</p>
+<p class='fld ver'><span class='fl'>verifier → Walk&lt;forward&gt;&lt;slow&gt;:</span> <mark class='bad'>The agent is currently facing a sink, not a toilet, and is standing upright</mark>. The goal is to find and sit on the toilet. <mark class='bad'>Since the agent is not at the target object, Stop/Stand is inappropriate</mark>.</p>
+</div></div>
+</div>
+
+</div>
+<div class='anal case-anal'><span class='fl'>analysis:</span> At step 26 the agent has already sat down on the toilet successfully. At step 27 the verifier &mdash; the same VLM &mdash; fails to understand its own sitting posture (it believes the agent is standing), sees the sink in front, concludes the agent is not on the toilet, and sends it off to search again.</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -980,6 +1589,12 @@
       dotsEl.appendChild(s);
     });
     function renderMeta(it) {
+      if (cfg.kind === 'success') {
+        metaEl.innerHTML =
+          '<div class="err-chip"><span class="err-chip-model">' + (it.model || 'Gemini-3.1') +
+          '</span><span class="err-chip-sep">&middot;</span><span>&ldquo;' + it.instr + '&rdquo;</span></div>';
+        return;
+      }
       var badge = cfg.kind === 'success'
         ? '<span class="badge badge-success">Success</span>'
         : '<span class="badge badge-fail">Failure</span>';
@@ -988,17 +1603,24 @@
         : '';
       metaEl.innerHTML =
         '<div class="meta-row">' + badge +
-        '<span class="meta-model">Gemini-3.1</span>' +
+        '<span class="meta-model">' + (it.model || 'Gemini-3.1') + '</span>' +
         '<span class="meta-task">' + it.task + '</span>' +
         '<span class="meta-caseid">' + it.id + '</span></div>' +
         cat +
         '<p class="meta-note">' + it.note + '</p>';
+      var an = document.getElementById(cfg.id + 'Analysis');
+      if (an) {
+        an.innerHTML = it.analysisTpl ? document.getElementById(it.analysisTpl).innerHTML : '';
+        an.querySelectorAll('.shot[data-t]').forEach(function (el) {
+          el.onclick = function () { video.currentTime = parseFloat(el.getAttribute('data-t')); video.play(); };
+        });
+      }
     }
     function show(i) {
       idx = (i + cfg.items.length) % cfg.items.length;
       var it = cfg.items[idx];
       video.querySelector('source').src = it.src;
-      video.load(); video.play();
+      video.load();
       dotsEl.querySelectorAll('span').forEach(function (s, j) { s.className = j === idx ? 'active' : ''; });
       renderMeta(it);
     }
@@ -1011,48 +1633,54 @@
     id: 'succ', kind: 'success',
     items: [
       { id: '104862384 · ep26', src: 'static/videos/gallery/succ_04_toilet.mp4',
+        instr: 'find a <b>toilet</b>, navigate to it, and sit on it',
         task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
         note: 'Finds the bathroom, navigates in and sits on the toilet.' },
       { id: '106878858 · ep22', src: 'static/videos/gallery/succ_05_toilet.mp4',
+        instr: 'find a <b>toilet</b>, navigate to it, and sit on it',
         task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
         note: 'Short, direct approach into the bathroom and a clean sit on the toilet.' },
       { id: '104348328 · ep21', src: 'static/videos/gallery/succ_09_bed.mp4',
+        instr: 'find a <b>bed</b>, navigate to it, and sit on it',
         task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
         note: 'Extended navigation through the house to reach the bed and sit down.' }
     ]
   });
   function stepSucc(d) { SUCC.step(d); }
 
-  var FAIL = buildGallery({
-    id: 'fail', kind: 'fail',
-    items: [
-      { id: '102816036 · ep20', src: 'static/videos/gallery/fail_01_explore.mp4',
-        task: 'find a <b>bed</b> &rarr; navigate &rarr; sit',
-        cat: 'Ineffective exploration', code: 'ineffective_exploration',
-        note: '100-step timeout: the agent wanders and knocks into furniture, ending 5.1&nbsp;m from the bed &mdash; it never brings the target into view.' },
-      { id: '102816600 · ep20', src: 'static/videos/gallery/fail_02_jammed.mp4',
-        task: 'find a <b>TV</b> &rarr; navigate &rarr; sit',
-        cat: 'Unaware jammed', code: 'unaware_jammed',
-        note: 'Jams against a table and keeps side-stepping in place (colliding 84% of steps), stuck 1.0&nbsp;m short without ever registering that it is blocked.' },
-      { id: '102816756 · ep9', src: 'static/videos/gallery/fail_03_inview.mp4',
-        task: 'find a <b>chair</b> &rarr; navigate &rarr; sit',
-        cat: 'Target in view but not seen', code: 'target_in_view_not_seen',
-        note: 'The chair is directly beside it at d&nbsp;=&nbsp;0&nbsp;m, yet it keeps choosing &ldquo;walk forward&rdquo; instead of sitting &mdash; the target is in the ego view but never acted on.' },
-      { id: '102817140 · ep2', src: 'static/videos/gallery/fail_04_arrived.mp4',
-        task: 'find a <b>potted plant</b> &rarr; navigate &rarr; sit',
-        cat: 'Unaware arrived', code: 'unaware_arrived',
-        note: 'The plant is in view and it walks right up to d&nbsp;=&nbsp;0.21&nbsp;m &mdash; but instead of sitting it keeps walking and turning until the step limit runs out. It arrived and never realized it.' },
-      { id: '102816114 · ep25', src: 'static/videos/gallery/fail_05_sitair.mp4',
-        task: 'find a <b>toilet</b> &rarr; navigate &rarr; sit',
-        cat: 'Sit on air', code: 'sit_on_air',
-        note: 'Reaches the toilet at d&nbsp;=&nbsp;0.03&nbsp;m and issues &ldquo;sit down&rdquo; &mdash; but the sit lands in the wrong place / into the air, so pelvis contact is never made.' },
-      { id: '102816114 · ep6', src: 'static/videos/gallery/fail_06_toofar.mp4',
-        task: 'find a <b>chair</b> &rarr; navigate &rarr; sit',
-        cat: 'Too far', code: 'too_far',
-        note: 'Wanders out of the house entirely into the garden and keeps going &mdash; a 100-step timeout that ends 4.8&nbsp;m from the nearest chair, having walked away from every target.' }
-    ]
-  });
-  function stepFail(d) { FAIL.step(d); }
+  var errOpen = -1;
+  function errSelect(i) {
+    var panel = document.getElementById('errPanel');
+    var cards = document.querySelectorAll('#errTabs .tldr-card');
+    var contents = document.querySelectorAll('#errPanel .err-content');
+    contents.forEach(function (c) { var v = c.querySelector('video'); if (v) v.pause(); });
+    if (errOpen === i) {
+      errOpen = -1;
+      panel.classList.remove('open');
+      cards.forEach(function (c) { c.classList.remove('open'); });
+      return;
+    }
+    errOpen = i;
+    contents.forEach(function (c) { c.style.display = c.getAttribute('data-i') == i ? 'block' : 'none'; });
+    panel.classList.add('open');
+    cards.forEach(function (c, j) { c.classList.toggle('open', j === i); });
+    var v = contents[i].querySelector('video');
+    var tl = contents[i].querySelector('.tl');
+    if (v && tl) {
+      var dur = parseFloat(tl.getAttribute('data-dur'));
+      var cur = tl.querySelector('.cur');
+      tl.onclick = function (e) {
+        var r = tl.getBoundingClientRect();
+        v.currentTime = (e.clientX - r.left) / r.width * dur;
+        v.play();
+      };
+      v.ontimeupdate = function () { cur.style.left = (v.currentTime / dur * 100) + '%'; };
+    }
+    contents[i].querySelectorAll('.shot[data-t]').forEach(function (el) {
+      el.onclick = function () { if (v) { v.currentTime = parseFloat(el.getAttribute('data-t')); v.play();
+        v.scrollIntoView({ block: 'start', behavior: 'smooth' }); } };
+    });
+  }
 </script>
 
 <!-- ======================= BibTeX ======================= -->
