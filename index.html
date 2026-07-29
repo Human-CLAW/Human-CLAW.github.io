@@ -549,7 +549,7 @@
       <button class="carousel-arrow prev" onclick="stepDemo(-1)" aria-label="Previous demo"><i class="fas fa-chevron-left"></i></button>
       <div class="carousel-viewport">
         <video id="demoVideo" class="demo-video" autoplay muted playsinline controls>
-          <source src="static/videos/demo1.mp4" type="video/mp4" />
+          <source src="static/videos/demo1.mp4?v=2" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -590,8 +590,8 @@
   }
 
   var DEMOS = [
-    { src: 'static/videos/demo1.mp4', title: 'Stairs Interaction' },
-    { src: 'static/videos/demo2.mp4', title: 'Sit on Sofa' }
+    { src: 'static/videos/demo1.mp4?v=2', title: 'Stairs Interaction' },
+    { src: 'static/videos/demo2.mp4?v=2', title: 'Sit on Sofa' }
   ];
   var demoIdx = 0;
   var dotsEl = document.getElementById('demoDots');
@@ -630,7 +630,7 @@
       <button class="carousel-arrow prev" onclick="stepVlm(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
       <div class="carousel-viewport">
         <video id="vlmVideo" class="demo-video" autoplay muted playsinline controls>
-          <source src="static/videos/vlm_stairs.mp4" type="video/mp4" />
+          <source src="static/videos/vlm_stairs.mp4?v=2" type="video/mp4" />
         </video>
       </div>
       <button class="carousel-arrow next" onclick="stepVlm(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
@@ -641,8 +641,8 @@
 </section>
 <script>
   var VLM_DEMOS = [
-    { src: 'static/videos/vlm_stairs.mp4', title: '“find the stairs and go to the second floor”' },
-    { src: 'static/videos/vlm_sofa.mp4', title: '“find the sofa and sit on it”' }
+    { src: 'static/videos/vlm_stairs.mp4?v=2', title: '“find the stairs and go to the second floor”' },
+    { src: 'static/videos/vlm_sofa.mp4?v=2', title: '“find the sofa and sit on it”' }
   ];
   var vlmIdx = 0;
   var vlmDotsEl = document.getElementById('vlmDots');
