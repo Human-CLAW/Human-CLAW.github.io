@@ -13,6 +13,10 @@ VIDEO_TRIM={
 }
 # per-case literal replacements applied to the generated moment HTML
 POST_FIX={
+ 'find_ineffective_exploration__011': [
+   ("src='static/imgs/errcases/find_ineffective_exploration__011/step_043.jpg'",
+    "src='static/imgs/errcases/find_ineffective_exploration__011/step_043.jpg?v=2'"),
+ ],
  'nav_unaware_arrived_touch__009': [
    ("<mark class='ok'>The previous action was a failed planner call, and the verifier suggested a small forward movement.</mark> ",
     ""),
