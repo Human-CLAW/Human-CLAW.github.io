@@ -24,6 +24,8 @@ POST_FIX={
  'nav_unaware_jammed__002': [
    ("<mark class='ok'>The near-body lane is blocked by the chair directly in front</mark>",
     "<mark class='bad'>The near-body lane is blocked by the chair directly in front</mark>"),
+   ("<mark class='ok'>Stop/Stand as the goal of touching the chair is achieved</mark>",
+    "<mark class='bad'>Stop/Stand as the goal of touching the chair is achieved</mark>"),
  ],
  'nav_lost_target__006': [
    ("<mark class='ok'>The straight-forward path is blocked by a wall/door frame structure immediately ahead</mark>",
