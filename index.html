@@ -234,7 +234,6 @@
     table.leaderboard tr:hover td { background: var(--bg-card2); }
     table.leaderboard tr.post-release td { background: #edf8f0; }
     table.leaderboard tr.post-release:hover td { background: #dff0e5; }
-    table.leaderboard td.model sup { color: var(--brand-light); font-weight: 600; margin-left: 1px; }
     .lb-note .swatch-post { display: inline-block; width: 0.85em; height: 0.85em; background: #edf8f0; border: 1px solid var(--border); border-radius: 2px; vertical-align: -0.05em; margin-right: 0.3em; }
     .lb-sortrow th { cursor: pointer; user-select: none; white-space: nowrap; }
     .lb-sortrow th:hover { color: var(--accent2); }
@@ -885,7 +884,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="post-release"><td class="model">GPT-6<sup>&dagger;</sup></td><td class="best">75.5%</td><td class="best">57.1%</td><td class="best">46.6%</td><td>41.5%</td><td>1.70</td><td>4.64</td><td>5.3</td><td>60.5</td><td>4847</td><td class="best">308</td></tr>
+          <tr class="post-release"><td class="model">GPT-6</td><td class="best">75.5%</td><td class="best">57.1%</td><td class="best">46.6%</td><td>41.5%</td><td>1.70</td><td>4.64</td><td>5.3</td><td>60.5</td><td>4847</td><td class="best">308</td></tr>
           <tr><td class="model">Gemini-3.1</td><td class="second">64.9%</td><td class="second">42.4%</td><td class="second">16.8%</td><td>39.5%</td><td>1.50</td><td class="best">1.22</td><td>5.7</td><td>59.1</td><td>5890</td><td>311</td></tr>
           <tr><td class="model">Gemma-4-31B</td><td>58.1%</td><td>28.7%</td><td>11.1%</td><td>40.1%</td><td>1.66</td><td>1.86</td><td class="second">4.8</td><td>78.5</td><td>4632</td><td>322</td></tr>
           <tr><td class="model">Gemini-2.5</td><td>58.5%</td><td>21.6%</td><td>3.5%</td><td>37.7%</td><td class="second">1.35</td><td>3.03</td><td>8.7</td><td>71.3</td><td>6412</td><td>401</td></tr>
@@ -903,7 +902,7 @@
       Coll. = floor-relative non-ground collision step fraction. Motion Jerk = root-rigid jerk at &asymp;0.27 s
       timescale (lower = more coherent). <span class="best">Gold</span> = best, <span class="second">blue</span> = second best per column.
       Click a metric header to sort.
-      <br /><span class="swatch-post"></span><sup>&dagger;</sup> GPT-6 was evaluated after the paper's initial arXiv release (July 2026) and added to the leaderboard afterwards.
+      <br /><span class="swatch-post"></span>Green background = evaluated after the paper's initial arXiv release (July 2026).
     </p>
     <script>
       (function () {
