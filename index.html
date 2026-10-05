@@ -463,6 +463,24 @@
       padding: 0.05rem 0.3rem; border-radius: 3px; }
     .err-analysis .mo-top.mo-solo { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
     @media (max-width: 640px) { .err-analysis .mo-top { grid-template-columns: 1fr; } }
+
+    /* ---- GPT-6 section ---- */
+    .g6-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin: 1.1rem 0 1.4rem; }
+    .g6-stat { text-align: center; background: var(--bg-card2); border-radius: 10px; padding: 0.8rem 0.5rem; }
+    .g6-stat .num { font-size: 1.6rem; font-weight: 800; color: var(--brand); line-height: 1.1; }
+    .g6-stat .lab { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .g6-fig img { width: 100%; border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+    .g6-fig figcaption { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; }
+    .g6-h { font-weight: 700; color: var(--text-strong); font-size: 1.25rem; margin: 1.8rem 0 0.7rem; }
+    .g6-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .g6-grid1 { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+    @media (max-width: 900px) { .g6-grid3 { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .g6-stats { grid-template-columns: 1fr; } }
+    .g6-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem; }
+    .g6-card video { width: 100%; display: block; border-radius: 8px; background: #000; }
+    .g6-card h4 { font-weight: 700; color: var(--text-strong); margin: 0.6rem 0 0.3rem; }
+    .g6-card p { font-size: 0.92rem; color: var(--text); margin: 0; }
+    .g6-card .ep { font-family: monospace; font-size: 0.8rem; color: var(--text-muted); }
   </style>
 </head>
 
@@ -527,6 +545,11 @@
             <span class="link-block">
               <a href="#leaderboard" class="button is-dark is-rounded">
                 <span class="icon"><i class="fas fa-trophy"></i></span><span>Leaderboard</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#gpt6" class="button is-dark is-rounded">
+                <span class="icon"><i class="fas fa-chart-simple"></i></span><span>GPT-6 Astra results</span>
               </a>
             </span>
             <span class="link-block">
@@ -902,7 +925,7 @@
       Coll. = floor-relative non-ground collision step fraction. Motion Jerk = root-rigid jerk at &asymp;0.27 s
       timescale (lower = more coherent). <span class="best">Gold</span> = best, <span class="second">blue</span> = second best per column.
       Click a metric header to sort.
-      <br /><span class="swatch-post"></span>Green background = evaluated after the paper's initial arXiv release (July 2026).
+      <br /><span class="swatch-post"></span>Green background = evaluated after the paper's initial arXiv release (July 2026). See <a href="#gpt6">GPT-6 Astra results and analysis</a>.
     </p>
     <script>
       (function () {
@@ -1748,6 +1771,99 @@
     });
   }
 </script>
+
+<!-- ======================= GPT-6 Astra ======================= -->
+<section class="section section-alt" id="gpt6">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">GPT-6 Astra: Results and Analysis</h2>
+    <p>
+      GPT-6 Astra was released after the nine-model evaluation in the paper. We evaluated it on all 1,218
+      full-validation episodes of HumanCLAW-Bench with the same harness and metric definitions; the
+      <a href="#leaderboard">leaderboard above</a> reports the main results. GPT-6 sharply improves every stage over the best of the nine models
+      (Gemini-3.1):
+    </p>
+    <div class="g6-stats">
+      <div class="g6-stat"><div class="num">75.5%</div><div class="lab">FindSR &nbsp;(best of nine: 64.9%)</div></div>
+      <div class="g6-stat"><div class="num">57.1%</div><div class="lab">NavSR &nbsp;(best of nine: 42.4%)</div></div>
+      <div class="g6-stat"><div class="num">46.6%</div><div class="lab">InteractSR &nbsp;(best of nine: 16.8%)</div></div>
+    </div>
+    <p>
+      Three changes stand behind the numbers. <b>Perception:</b> failures caused by not recognizing a target that
+      is in view fall from 11.4% of all episodes to 2.5%. <b>Body self-localization:</b> stopping while far, not
+      stopping on arrival, and being jammed unawares fall from 21.7% of all episodes to 8.1%. <b>Decisiveness:</b>
+      GPT-6 never stops in front of the seat without sitting and never sits and stands up again, and it completes
+      far more tasks within the same budget of decision steps.
+    </p>
+
+    <figure class="g6-fig" style="margin-top:1.4rem;">
+      <img src="static/imgs/fig_gpt6_error_analysis.png" alt="Where GPT-6 Astra fails: failure funnel and per-stage root causes" />
+      <figcaption><b>Where GPT-6 Astra fails.</b> (a) Find&rarr;Nav&rarr;Interact funnel over all 1,218 episodes;
+        (b&ndash;d) per-stage root-cause breakdowns colored by faculty, with the same taxonomy and rules as the
+        nine-model analysis above.</figcaption>
+    </figure>
+
+    <div class="g6-h">Three failure modes of the nine models that GPT-6 fixes</div>
+    <p style="margin-bottom:0.8rem;">Same episode, same harness: left, one of the nine models; right, GPT-6. Each side shows the
+      egocentric view (top) and the third-person view (bottom); the shorter side freezes on its last frame.</p>
+    <div class="g6-grid3">
+      <div class="g6-card">
+        <video controls muted playsinline preload="metadata"><source src="static/videos/gpt6/gpt6_compare_unaware_arrived.mp4" type="video/mp4" /></video>
+        <h4>Unaware arrival &rarr; stops at the target</h4>
+        <p>Qwen3.6-35B-A3B walks up to the chair and keeps navigating for all 100 steps without ever acknowledging
+          that it has arrived. GPT-6 reaches the chair and stops at step 10.</p>
+        <p class="ep">104348328 &middot; ep11 &middot; chair</p>
+      </div>
+      <div class="g6-card">
+        <video controls muted playsinline preload="metadata"><source src="static/videos/gpt6/gpt6_compare_sit_wrong.mp4" type="video/mp4" /></video>
+        <h4>Sits on the wrong object &rarr; sits on the bed</h4>
+        <p>Gemma-4-31B commits to the sit next to the bed and lands on the nightstand. GPT-6 aligns with the bed and
+          sits on it at step 15.</p>
+        <p class="ep">104348028 &middot; ep27 &middot; bed</p>
+      </div>
+      <div class="g6-card">
+        <video controls muted playsinline preload="metadata"><source src="static/videos/gpt6/gpt6_compare_stand_after_sit.mp4" type="video/mp4" /></video>
+        <h4>Stands up after sitting &rarr; sits and holds</h4>
+        <p>Gemma-4-31B sits down on the toilet and then stands up again instead of stopping. GPT-6 sits down at step 20
+          and holds the pose.</p>
+        <p class="ep">102816114 &middot; ep23 &middot; toilet</p>
+      </div>
+    </div>
+
+    <div class="g6-h">Three failure modes that remain</div>
+    <p style="margin-bottom:0.8rem;">What remains is concentrated in body awareness and in the spatial outcome of the agent&rsquo;s own
+      actions: 44% of the remaining navigation failures are self-localization errors, every interaction failure is a
+      misplaced sit (69% beside the seat, 31% onto the wrong surface), and ineffective pacing or spinning still causes
+      35% of the find failures and 17% of the navigation failures. Each video shows the egocentric view (left) and the
+      third-person view (right) of one GPT-6 episode.</p>
+    <div class="g6-grid1">
+      <div class="g6-card">
+        <video controls muted playsinline preload="metadata"><source src="static/videos/gpt6/gpt6_fail_ineffective_actions.mp4" type="video/mp4" /></video>
+        <h4>Find failure: ineffective actions (35% of GPT-6 find failures)</h4>
+        <p>The bed is 2.9&nbsp;m away at the start, yet the agent never brings it into view: for 57 consecutive steps it stays
+          inside a 2&nbsp;m box, and its 64 walk and 34 turn commands trace 20.2&nbsp;m of path for 2.9&nbsp;m of net
+          displacement.</p>
+        <p class="ep">105515379_173104395 &middot; ep0 &middot; bed</p>
+      </div>
+      <div class="g6-card">
+        <video controls muted playsinline preload="metadata"><source src="static/videos/gpt6/gpt6_fail_unaware_jammed.mp4" type="video/mp4" /></video>
+        <h4>Jammed without noticing (1% of GPT-6 find failures, 9% of its navigation failures)</h4>
+        <p>Searching for the toilet, the agent walks into the gap between a bed and the long, low cabinet under the TV and stays
+          wedged there for the whole episode: 60 of its 84 locomotion commands move the body less than 10&nbsp;cm, yet its
+          visible state keeps reporting &ldquo;a clear wooden-floor aisle ahead&rdquo; and an open doorway two to three meters
+          away that it never reaches.</p>
+        <p class="ep">106878915_174887025 &middot; ep26 &middot; toilet</p>
+      </div>
+      <div class="g6-card">
+        <video controls muted playsinline preload="metadata"><source src="static/videos/gpt6/gpt6_fail_sit_on_air.mp4" type="video/mp4" /></video>
+        <h4>Interaction failure: sitting into thin air (69% of GPT-6 interaction failures)</h4>
+        <p>The agent reaches the couch (final body&ndash;target distance 0.04&nbsp;m), turns to align, and issues three consecutive
+          sit commands at a 0.45&nbsp;m seat height before stopping, but the pelvis comes down beside the cushion and never
+          touches it.</p>
+        <p class="ep">103997895_171031182 &middot; ep28 &middot; couch</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ======================= BibTeX ======================= -->
 <section class="section">
